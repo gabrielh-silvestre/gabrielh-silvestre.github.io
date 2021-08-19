@@ -19,6 +19,11 @@ body {
 }
 
 
+li {
+    padding: 0.5rem 0;
+}
+
+
 .highlight {
     color: var(--tertiary_color_2);
 
