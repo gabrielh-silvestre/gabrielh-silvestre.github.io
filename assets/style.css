@@ -1,9 +1,26 @@
 :root {
+    /* cor primária 60% */
+    /* cor secudária 30% */
+    /* cor terciária 10% */
+
     --primay_color: #120430;
     --secondary_color: #46238C;
     --tertiary_color: #1C257A;
-    --tertiary_color_2: #0A197C;
+    --tertiary_color_2: #D6D6D6;
 
     --title_font: 'Oswald', sans-serif;
     --text_font: 'Raleway', sans-serif;
+}
+body {
+    color: var(--tertiary_color_2);
+    font-family: var(--text_font);
+
+    background-color: var(--primay_color);
+}
+
+
+
+.title {
+    color: var(--secondary_color);
+    font-family: var(--title_font);
 }
