@@ -1,0 +1,50 @@
+:root {
+    /* cor primária 60% */
+    /* cor secudária 30% */
+    /* cor terciária 10% */
+
+    --primay_color: #120430;
+    --secondary_color: #46238C;
+    --tertiary_color: #1C257A;
+    --tertiary_color_2: #D6D6D6;
+
+    --title_font: 'Oswald', sans-serif;
+    --text_font: 'Raleway', sans-serif;
+}
+body {
+    color: var(--tertiary_color_2);
+    font-family: var(--text_font);
+
+    background-color: var(--primay_color);
+}
+
+
+li {
+    padding: 0.5rem 0;
+}
+
+
+.highlight {
+    color: var(--tertiary_color_2);
+
+    padding: 1px 5px;
+
+    border-radius: 5px;
+
+    background-color: var(--tertiary_color);
+}
+.title {
+    color: var(--secondary_color);
+    font-family: var(--title_font);
+    font-size: 3rem;
+}
+.sub_title {
+    font-size: 2rem;
+    font-weight: normal;
+}
+.links {
+    color: var(--tertiary_color);
+    text-decoration: none;
+
+    background-color: var(--tertiary_color_2);
+}
