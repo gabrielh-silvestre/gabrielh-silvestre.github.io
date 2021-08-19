@@ -42,3 +42,9 @@ li {
     font-size: 2rem;
     font-weight: normal;
 }
+.links {
+    color: var(--tertiary_color);
+    text-decoration: none;
+
+    background-color: var(--tertiary_color_2);
+}
