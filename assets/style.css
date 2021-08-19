@@ -19,7 +19,15 @@ body {
 }
 
 
+.highlight {
+    color: var(--tertiary_color_2);
 
+    padding: 1px 5px;
+
+    border-radius: 5px;
+
+    background-color: var(--tertiary_color);
+}
 .title {
     color: var(--secondary_color);
     font-family: var(--title_font);
