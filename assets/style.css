@@ -31,4 +31,9 @@ body {
 .title {
     color: var(--secondary_color);
     font-family: var(--title_font);
+    font-size: 3rem;
+}
+.sub_title {
+    font-size: 2rem;
+    font-weight: normal;
 }
