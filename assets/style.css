@@ -95,3 +95,13 @@ li {
     
     width: 45%;
 }
+.parallel_content picture {
+    background-image: url("./profile_picture.jpeg");
+    background-position: center;
+    background-size: cover;
+
+    border-radius: 50%;
+
+    height: 150px;
+    width: 150px;
+}
