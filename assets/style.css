@@ -11,6 +11,11 @@
     --title_font: 'Oswald', sans-serif;
     --text_font: 'Raleway', sans-serif;
 }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 body {
     color: var(--tertiary_color_2);
     font-family: var(--text_font);
@@ -47,4 +52,83 @@ li {
     text-decoration: none;
 
     background-color: var(--tertiary_color_2);
+}
+
+
+.header_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+    padding: 2rem;
+
+    background-color: var(--secondary_color);
+}
+.header_container strong {
+    font-size: 2.5rem;
+}
+.header_container ul {
+    display: flex;
+    justify-content: space-around;
+
+    list-style: none;
+}
+.header_nav_items {
+    font-size: 1.5rem;
+
+    margin: 0 5px;
+}
+
+
+.parallel_block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 0.5rem 1.5rem;
+}
+.parallel_content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+    width: 45%;
+}
+.parallel_content p:first-of-type {
+    margin-bottom: 1rem;
+}
+
+
+.profle_picture {
+    background-image: url("./profile_picture.jpeg");
+    background-position: center;
+    background-size: cover;
+
+    border-radius: 50%;
+
+    height: 150px;
+    width: 150px;
+}
+
+
+.container {
+    margin: 1.5rem 3rem;
+}
+.text_center {
+    text-align: center;
+}
+.no_decoration {
+    text-decoration: none;
+    list-style: none;
+}
+
+
+.nav_list {
+    display: flex;
+    justify-content: center;
+}
+.nav_list li {
+    font-size: 1.5rem;
+    margin: 0 5px;
 }
