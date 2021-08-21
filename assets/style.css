@@ -88,3 +88,10 @@ li {
 
     margin: 0.5rem 1.5rem;
 }
+.parallel_content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+    width: 45%;
+}
