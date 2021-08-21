@@ -95,6 +95,11 @@ li {
     
     width: 45%;
 }
+.parallel_content p:first-of-type {
+    margin-bottom: 1rem;
+}
+
+
 .profle_picture {
     background-image: url("./profile_picture.jpeg");
     background-position: center;
@@ -105,6 +110,15 @@ li {
     height: 150px;
     width: 150px;
 }
-.parallel_content p:first-of-type {
-    margin-bottom: 1rem;
+
+
+.container {
+    margin: 1.5rem 3rem;
+}
+.text_center {
+    text-align: center;
+}
+.no_decoration {
+    text-decoration: none;
+    list-style: none;
 }
