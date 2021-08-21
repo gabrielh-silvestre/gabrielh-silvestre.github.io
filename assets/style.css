@@ -95,7 +95,7 @@ li {
     
     width: 45%;
 }
-.parallel_content picture {
+.profle_picture {
     background-image: url("./profile_picture.jpeg");
     background-position: center;
     background-size: cover;
@@ -104,4 +104,7 @@ li {
 
     height: 150px;
     width: 150px;
+}
+.parallel_content p:first-of-type {
+    margin-bottom: 1rem;
 }
