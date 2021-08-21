@@ -122,3 +122,13 @@ li {
     text-decoration: none;
     list-style: none;
 }
+
+
+.nav_list {
+    display: flex;
+    justify-content: center;
+}
+.nav_list li {
+    font-size: 1.5rem;
+    margin: 0 5px;
+}
