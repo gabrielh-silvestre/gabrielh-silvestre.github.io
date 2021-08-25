@@ -123,6 +123,7 @@ body {
 }
 
 #minha_foto {
+  align-self: center;
   border-radius: 50%;
   height: 310px;
   margin-left: 15px;
