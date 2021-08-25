@@ -8,86 +8,145 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Raleway&display=swap" rel="stylesheet">
-    <title>My Portfolio</title>
+    <title>Lessons Learned</title>
 </head>
 <body>
-    <header>
-        <div class="header_container">
-            <strong class="highlight">Me</strong>
+    
+    <header id="cabecalho" class="cover_width">
+        <div class="container d_flex">
+            <section class="d_flex center_all">
+                <h1 class="titles" id="titulo">Me</h1>
+                <img src="./assets/coffee.svg" alt="home icon">
+            </section>
 
-            <div>
-                <ul>
-                    <li><a class="header_nav_items links highlight" href="#skills">Skills</a></li>
-                    <li><a class="header_nav_items links highlight" href="#about_me">About me</a></li>
-                    <li><a class="header_nav_items links highlight" href="#contact">Contact</a></li>
-                </ul>
-            </div>
+            <section>
+                <nav class="navbar navbar_header">
+                    <ul class="no_decoration">
+                        <li class="button">About me</li>
+                        <li class="button">Skills</li>
+                        <li class="button">Contact</li>
+                    </ul>
+                </nav>
+            </section>
         </div>
     </header>
 
     <main>
-
         <section id="about_me">
-            <div class="parallel_block">
-                <div class="parallel_content">
-                    <h1 class="title">Gabriel Silvestre</h1>    
-                    <picture class="profle_picture"></picture>
-                </div>
-
-                <article class="parallel_content">
-                    <h2 class="title">About me</h2>
-                    
-                    <p>Hi i'm Gabriel Henrique Silvestre Baldino a brazzilian web development student and i'm 20 years old. Currently i'm studdy in Trybe (the best school in this area haha) with focus on get a international job.</p>
-                    <p>I see my self as an optimistic person with good teamwork skills in general, having more facilities to plain and execute projects and more difficulties to adapt in midway. And for fininshing this apresentation I will intruduce you to my dream and that is to work with software developmente (web and mobile ideally)... in <strong class="highlight">Canada</strong></p>
+            <div class="container sec_about_me">
+                <section class="d_flex flex_column sec_ab_1">
+                    <div class="presentation">
+                        <h2 class="titles border_secondary cover_height">Gabriel Silvestre</h2>                    
+                    </div>
+                    <div class="my_infos border_secondary cover_height">
+                        <ul class="d_flex no_decoration">
+                            <li>Gender: Cis/Man</li>
+                            <li>Age: 20</li>
+                            <li>Nacionality: Brazilian</li>
+                        </ul>
+                    </div>
+                </section>
+    
+                <article class="sec_ab_2">
+                    <p class="border_secondary cover_height self_resume">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis placeat, soluta quia officiis dolor magni enim nam unde non quisquam, rem architecto quaerat voluptates quasi officia consectetur distinctio quas nostrum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam quo alias reiciendis itaque veritatis omnis, odio, exercitationem tenetur, nisi adipisci illo odit! Autem nemo eveniet aliquam voluptatum. Cum, ratione iure.</p>
                 </article>
+    
+                <section class="sec_ab_3">
+                    <img id="minha_foto" class="border_secondary" src="./assets/Profile_picture_square.jpeg" alt="Gabriel Silvestre profile picture">
+                </section>
             </div>
         </section>
 
-        <section id="skills">
-            <div class="container">
-                <h2 class="title text_center">Skills</h2>
-    
-                <div class="parallel_block">
-                    <article class="parallel_content">
-                        <h3 class="title sub_title">Concrete skills</h3>
-                        <ul class="no_decoration text_center">
-                            <li>UNIX Terminal</li>
-                            <li>GIT & GitHub</li>
-                            <li><strong class="highlight">HTML</strong></li>
-                            <li><strong class="highlight">CSS</strong></li>
-                            <li>JavaScript (Basics)</li>
-                            <li>Python (Basics)</li>
-                        </ul>
-                    </article>
+        <div class="d_flex container sec_divisor split_between">
+            <section id="skills" class="cover_width">
+                <div class="sec_title">
+                    <h3 class="titles title_skills border_secondary">Skills</h3>
+                </div>  
+                <div class="sec_skills d_flex split_between">              
+                    <section>
+                        <ol id="licoes_aprendidas" class="d_flex flex_column split_between lessons cover_height">
+                            <li>Unix & Bash</li>
+                            <li>GIT</li>
+                            <li>GitHub</li>
+                            <li>Web Work-flow</li>
+                            <li>HTTP Protocols</li>
+                            <li>HTML</li>
+                            <li>CSS</li>
+                            <li>Semantic HTML</li>
+                            <li>Python</li>
+                            <li>JavaScript</li>
+                        </ol>
+                    </section>
         
-                    <article class="parallel_content">
-                        <h3 class="title sub_title">Not so concrete</h3>
-                        <ul class="no_decoration text_center">
-                            <li><em>BootStrap</em></li>
-                            <li><em>Node.js</em></li>
-                            <li><em>Express.js</em></li>
+                    <section>
+                        <h4 class="titles border_secondary">Not-Learned</h4>
+                        <ul id="licoes_a_aprender" class="d_flex flex_column split_between no_decoration lessons">
+                            <li>Web-responsivity</li>
+                            <li>Jest.js</li>
+                            <li>React.js</li>
+                            <li>Redux.js</li>
+                            <li>Agile Methodology</li>
+                            <li>Node.js</li>
+                            <li>Express.js</li>
+                            <li>MySQL</li>
+                            <li>MongoDB</li>
+                            <li>Socket</li>
                         </ul>
-                    </article>
+                    </section>
                 </div>
-            </div>
-
-        </section>
-
-        <section id="contact">
-            <div class="container">
-                <h2 class="title text_center">Contact</h2>
+            </section>
     
+            <section class="personal_info">
                 <div>
-                    <ul class="no_decoration nav_list">
-                        <li><a class="links highlight" target="_blank" href="https://www.linkedin.com/in/gabrielh-silvestre/">Linkedin</a></li>
-                        <li><a class="links highlight" target="_blank" href="https://github.com/gabrielh-silvestre">GitHub</a></li>
-                        <li><a class="links highlight" target="_blank" href="https://www.akshay.rocks/resources">Favorite site</a></li>
-                    </ul>
+                    <nav class="navbar">
+                        <ul class="d_flex split_between social_icons">
+                            <li>
+                                <a href="https://github.com/gabrielh-silvestre" target="_blank" rel="noopener noreferrer"><img src="./assets/github.svg" alt="github icon"></a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/in/gabrielh-silvestre/" target="_blank" rel="noopener noreferrer"><img src="./assets/linkedin.svg" alt="linkedin icon"></a>
+                            </li>
+                            <li>
+                                <a href="mailto:gabriel.h.silvestre11@gmail.com"><img src="./assets/mail.svg" alt="email icon"></a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-            </div>
-
-        </section>
-
+                <aside class="short_resume">
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus illum ut vero at, commodi reiciendis?</p>
+                </aside>
+            </section>
+        </div>
     </main>
+
+    <footer id="rodape" class="cover_width sec_divisor">
+        <div class="container d_flex split_between center_all">
+            <div class="lado-esquerdo">
+                <nav class="navbar">
+                    <ul class="no_decoration">
+                        <li>
+                            <a href="https://github.com/gabrielh-silvestre" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/gabrielh-silvestre/" target="_blank" rel="noopener noreferrer">Linkedin</a>
+                        </li>
+                        <li>
+                            <a href="mailto:gabriel.h.silvestre11@gmail.com" target="_blank" rel="noopener noreferrer">E-mail</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+    
+            <div class="lado-direito">
+                <table>
+                    <tr>
+                        <td><p>Last update:</p></td>
+                        <td><p>25 ago 2021</p></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
