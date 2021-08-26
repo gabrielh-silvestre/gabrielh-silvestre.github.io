@@ -65,6 +65,13 @@ body {
   justify-content: space-between;
 }
 
+#contact {
+  border-radius: 0 0 25px 25px;
+  border-top: none;
+  max-width: 310px;
+  padding: 0 25px;
+}
+
 .center_all {
   align-items: center;
   justify-content: center;
@@ -116,6 +123,7 @@ body {
 }
 
 #minha_foto {
+  align-self: center;
   border-radius: 50%;
   height: 310px;
   margin-left: 15px;
