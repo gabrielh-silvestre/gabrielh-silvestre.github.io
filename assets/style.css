@@ -160,6 +160,10 @@ body {
   margin: 0 0.3rem;
 }
 
+.navbar ul li * {
+  text-decoration: none;
+}
+
 .no_decoration {
   list-style: none;
   text-decoration: none;
@@ -236,9 +240,15 @@ body {
   font-size: 2.5rem;
 }
 
+.sec_sub_title {
+  font-size: 1.5rem;
+}
+
 .short_resume {
-  text-align: justify;
-  line-height: 25px;
+  border: 3px solid var(--secondary_color);
+  border-bottom: none;
+  border-radius: 25px 25px 0 0;
+  padding: 5px 25px;
 }
 
 #skill_title {
