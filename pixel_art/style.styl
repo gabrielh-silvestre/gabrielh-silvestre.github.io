@@ -2,21 +2,42 @@ container-mix()
   margin: auto
   width: calc(80% - 80px)
 
+round-border()
+  border-style: none
+  border-radius: 50%
+
+round-corner()
+  border-style: none
+  border-radius: 7px
+
+btn-generator(y, x)
+  round-corner()
+  padding: y x
+
 *
   box-sizing: border-box
   padding: 0
   margin: 0
+  
+#board-size
+  background-color: #39C18C
+  padding: 2px 0
+  round-corner()
+  &:hover
+    background-color: #8cffd1
+    border: none
 
 .btn
   background-color: #a5a5a5;
-  border-style: none
-  border-radius: 5px
-  padding: 5px 20px
+  btn-generator(5px, 25px)
   &:hover
     background-color: #a50000
 
 .canvas-article
   container-mix()
+
+.canvas-config
+  margin: 2rem 0
 
 #clear-board
   margin-top: 15px
@@ -27,13 +48,17 @@ container-mix()
   width: calc(80% - 80px)
 
 .color
-  border: 1px solid black
+  round-border()
   display: inline-block
   height: 50px
   width: @height
   &:nth-child(1)
     background-color: black
-  
+    
+#generate-board
+  btn-generator(2px, 15px)
+  background-color: #39C18C
+
 .pixel
   border: 1px solid black
   display: inline-block
