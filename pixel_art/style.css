@@ -64,9 +64,9 @@
 }
 #pixel-board {
   margin: auto;
-  width: calc(80% - 80px);
 }
 .pixel-row {
+  display: flex;
   height: 40px;
 }
 header {
