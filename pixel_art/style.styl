@@ -70,6 +70,16 @@ btn-generator(y, x)
   margin: auto
   height: 700px
   width: @height
+  :nth-child(1)
+    :nth-last-child(1)
+      border-radius: 0 7px 0 0
+    :nth-child(1)
+      border-radius: 7px 0 0 0
+  :nth-last-child(1)
+    :nth-last-child(1)
+      border-radius: 0 0 7px 0
+    :nth-child(1)
+      border-radius: 0 0 0 7px
 
 .pixel-row
   display: flex
