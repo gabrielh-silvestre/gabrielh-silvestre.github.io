@@ -58,16 +58,15 @@
 .pixel {
   border: 1px solid #000;
   display: inline-block;
-  min-height: 40px;
-  min-width: 40px;
   background-color: #fff;
 }
 #pixel-board {
   margin: auto;
+  height: 700px;
+  width: 700px;
 }
 .pixel-row {
   display: flex;
-  height: 40px;
 }
 header {
   padding: 1.5rem;
