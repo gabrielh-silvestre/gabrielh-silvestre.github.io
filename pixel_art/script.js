@@ -33,6 +33,20 @@ const user = {
 
 // functions for the project
 
+function getElementSize(element) {
+  const elementWidth = getComputedStyle(getOne(element)).width;
+  const elementHeight = getComputedStyle(getOne(element)).height;
+
+  return [parseInt(elementWidth), parseInt(elementHeight)];
+}
+
+function generatorSize(element, numberOfElements) {
+  const width = getElementSize(element)[0]/numberOfElements;
+  const height = getElementSize(element)[1]/numberOfElements;
+
+  return [width, height];
+}
+
 function validLimit(limit) {
   let newLimit = limit;
   if (limit > 50) {
@@ -46,11 +60,15 @@ function validLimit(limit) {
 function generatorPixelLine(limit) {
   const rows = getAll('.pixel-row');
   const validatedLimit = validLimit(limit);
+  const width = generatorSize('#pixel-board', validatedLimit)[0];
+  const height = generatorSize('#pixel-board', validatedLimit)[1];
 
   rows.forEach((row) => {
     for (let i = 0; i < validatedLimit; i += 1) {
       const pixel = createElement('div');
       addClass(pixel, 'pixel');
+      pixel.style.width = `${width}px`;
+      pixel.style.height = `${height}px`
       plugHtml(row, pixel);
     }
   });
