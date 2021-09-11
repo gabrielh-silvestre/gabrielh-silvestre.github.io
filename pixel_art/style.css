@@ -6,6 +6,8 @@
 #board-size {
   background-color: #39c18c;
   padding: 2px 0;
+  padding-left: 10px;
+  outline: none;
   border-style: none;
   border-radius: 7px;
 }
