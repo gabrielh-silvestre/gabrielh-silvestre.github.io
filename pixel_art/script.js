@@ -24,11 +24,16 @@ function plugHtml(fatherElement, sonElement) {
   fatherElement.appendChild(sonElement);
 }
 
+function removeOfHtml(fatherElement, sonElement) {
+  fatherElement.removeChild(sonElement);
+}
+
 // universal variables
 
 const user = {
   paintingColor: 'black',
   boardSize: '',
+  numberColor: 4,
 };
 
 // functions for the project
@@ -102,7 +107,6 @@ function getColor() {
 
 function paintingPixel() {
   const allPixels = getAll('.pixel');
-  console.log(allPixels);
 
   allPixels.forEach((pixel) => {
     pixel.addEventListener('click', (event) => {
@@ -137,6 +141,42 @@ function clearPainting() {
       const pixelColor = pixel.style;
       pixelColor.backgroundColor = 'white';
     });
+  });
+}
+
+function getNumbersColors() {
+  const nColors = getOne('#many-colors');
+
+  nColors.addEventListener('input', (event) => {
+    if (event.target.value === '') {
+      user.numberColor = 4;
+    } else {
+      user.numberColor = event.target.value;
+    }
+  });
+}
+
+function resetColors() {
+  const colorPalette = getOne('#color-palette');
+  const allColors = getAll('.color');
+
+  allColors.forEach((color) => {
+    removeOfHtml(colorPalette, color);
+  });
+}
+
+function generateColors() {
+  const colorButton = getOne('#generate-colors');
+  const colorPalette = getOne('#color-palette');
+
+  colorButton.addEventListener('click', () => {
+    resetColors();
+    for (let i = 0; i < parseInt(user.numberColor, 10); i += 1) {
+      const newColor = createElement('div');
+      addClass(newColor, 'color');
+      plugHtml(colorPalette, newColor);
+    };
+    randomColorGenerator();
   });
 }
 
@@ -191,5 +231,7 @@ window.onload = () => {
   changeSelection();
   clearPainting();
   customizeBoardSize();
+  getNumbersColors();
+  generateColors();
   applyNewBoardSize();
 };
