@@ -12,6 +12,10 @@
 .btn:hover {
   background-color: #a50000;
 }
+.canvas-article {
+  margin: auto;
+  width: calc(80% - 80px);
+}
 #clear-board {
   margin-top: 15px;
 }
@@ -37,17 +41,22 @@
   background-color: #fff;
 }
 #pixel-board {
-  margin-top: 50px;
+  margin: auto;
+  width: calc(80% - 80px);
 }
 .pixel-row {
   height: 40px;
-}
-main {
-  margin-top: 100px;
 }
 header {
   padding: 1.5rem;
 }
 header .container {
+  display: flex;
+}
+main {
+  background-color: #ff0;
+  padding-top: 3rem;
+}
+main .container {
   display: flex;
 }

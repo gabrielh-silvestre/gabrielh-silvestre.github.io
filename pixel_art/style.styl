@@ -1,3 +1,7 @@
+container-mix()
+  margin: auto
+  width: calc(80% - 80px)
+
 *
   box-sizing: border-box
   padding: 0
@@ -10,6 +14,9 @@
   padding: 5px 20px
   &:hover
     background-color: #a50000
+
+.canvas-article
+  container-mix()
 
 #clear-board
   margin-top: 15px
@@ -35,15 +42,19 @@
   background-color: white
 
 #pixel-board
-  margin-top: 50px
+  container-mix()
 
 .pixel-row
   height: 40px
-
-main
-  margin-top: 100px
 
 header
   padding: 1.5rem
   .container
     display: flex
+
+main
+  background-color: yellow
+  padding-top: 3rem
+  .container
+    display: flex
+
