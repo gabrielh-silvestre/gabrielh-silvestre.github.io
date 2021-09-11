@@ -102,6 +102,7 @@ function getColor() {
 
 function paintingPixel() {
   const allPixels = getAll('.pixel');
+  console.log(allPixels);
 
   allPixels.forEach((pixel) => {
     pixel.addEventListener('click', (event) => {
@@ -166,6 +167,8 @@ function applyNewBoardSize() {
       resetCanvas();
       generatorPixelRow(parseInt(user.boardSize, 10));
       generatorPixelLine(parseInt(user.boardSize, 10));
+      paintingPixel();
+      clearPainting();
     }
   });
 }
