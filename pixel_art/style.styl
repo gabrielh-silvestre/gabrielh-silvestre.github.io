@@ -43,6 +43,11 @@ montserrant = 'Montserrat', sans-serif
   &:hover
     background-color: #a50000
 
+.board-btn
+  btn-generator(2px, 15px)
+  background-color: #39C18C
+  margin-top: 0.5rem
+
 .canvas-article
   container-mix()
 
@@ -76,10 +81,19 @@ montserrant = 'Montserrat', sans-serif
   max-width: 250px
   padding: 0.5rem
     
-.board-btn
-  btn-generator(2px, 15px)
-  background-color: #39C18C
-  margin-top: 0.5rem
+#eraser
+  round-corner()
+  height: 50px
+  padding-top: 15px
+  width: 100%
+
+.eraser-active
+  border: 2px solid #39C18C
+  box-shadow: 0px 0px 10px 3px #39C18C
+
+.eraser-section
+  @extend #color-palette
+  margin-top: 2rem
 
 .pixel
   border: 1px solid black

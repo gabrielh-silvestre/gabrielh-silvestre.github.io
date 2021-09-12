@@ -29,6 +29,13 @@
 .btn:hover {
   background-color: #a50000;
 }
+.board-btn {
+  border-style: none;
+  border-radius: 7px;
+  padding: 2px 15px;
+  background-color: #39c18c;
+  margin-top: 0.5rem;
+}
 .canvas-article {
   margin: auto;
   width: calc(80% - 80px);
@@ -59,7 +66,8 @@
 .color:nth-child(1) {
   background-color: #000;
 }
-#color-palette {
+#color-palette,
+.eraser-section {
   background-color: #fff;
   border-style: none;
   border-radius: 7px;
@@ -67,12 +75,19 @@
   max-width: 250px;
   padding: 0.5rem;
 }
-.board-btn {
+#eraser {
   border-style: none;
   border-radius: 7px;
-  padding: 2px 15px;
-  background-color: #39c18c;
-  margin-top: 0.5rem;
+  height: 50px;
+  padding-top: 15px;
+  width: 100%;
+}
+.eraser-active {
+  border: 2px solid #39c18c;
+  box-shadow: 0px 0px 10px 3px #39c18c;
+}
+.eraser-section {
+  margin-top: 2rem;
 }
 .pixel {
   border: 1px solid #000;
