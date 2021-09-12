@@ -202,8 +202,11 @@ function applyGeneratedColors() {
 function customizeBoardSize() {
   const newBoardSize = getOne('#board-size');
 
-  newBoardSize.addEventListener('input', (event) => {
+  newBoardSize.addEventListener('keyup', (event) => {
     user.boardSize = event.target.value;
+    if (event.which === 13) {
+      applyNewBoardSize();
+    }
   });
 }
 
@@ -216,22 +219,26 @@ function resetCanvas() {
   });
 }
 
-function applyNewBoardSize() {
+function validateNewBoardSize() {
   const generateButton = getOne('#generate-board');
 
   generateButton.addEventListener('click', () => {
     if (user.boardSize === '') {
       alert('Board inválido!');
     } else {
-      resetCanvas();
-      generatorPixelRow(parseInt(user.boardSize, 10));
-      generatorPixelLine(parseInt(user.boardSize, 10));
-      paintingPixel();
-      clearPainting();
-      generateDrag();
-      dragAndColor();
+      applyNewBoardSize();
     }
   });
+}
+
+function applyNewBoardSize() {
+  resetCanvas();
+  generatorPixelRow(parseInt(user.boardSize, 10));
+  generatorPixelLine(parseInt(user.boardSize, 10));
+  paintingPixel();
+  clearPainting();
+  generateDrag();
+  dragAndColor();
 }
 
 function randomColorGenerator() {
@@ -277,6 +284,6 @@ window.onload = () => {
   customizeBoardSize();
   getNumbersColors();
   generateColors();
-  applyNewBoardSize();
+  validateNewBoardSize();
   generateDrag();
 };
