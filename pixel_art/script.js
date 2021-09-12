@@ -211,6 +211,7 @@ function applyNewBoardSize() {
       generatorPixelLine(parseInt(user.boardSize, 10));
       paintingPixel();
       clearPainting();
+      dragToggle();
       dragAndColor();
     }
   });
@@ -225,14 +226,27 @@ function randomColorGenerator() {
   }
 }
 
+function dragToggle() {
+  const pxs = getAll('.pixel');
+
+  pxs.forEach((px) => {
+    px.addEventListener('mousedown', (event) => {
+      user.dragOn = true;
+    });
+    px.addEventListener('mouseup', (event) => {
+      user.dragOn = false;
+    });
+  });
+}
+
 function dragAndColor() {
   const pxs = getAll('.pixel');
 
   pxs.forEach((px) => {
     px.addEventListener('mouseover', (event) => {
-      const tempColor = event.target.style;
-      if (event.shiftKey) {
-        tempColor.backgroundColor = user.paintingColor;
+      if (user.dragOn) {
+        const pixelColor = event.target.style;
+        pixelColor.backgroundColor = user.paintingColor;
       }
     });
   });
@@ -250,5 +264,6 @@ window.onload = () => {
   getNumbersColors();
   generateColors();
   applyNewBoardSize();
+  dragToggle();
   dragAndColor();
 };
