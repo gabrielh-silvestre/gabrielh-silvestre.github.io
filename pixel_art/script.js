@@ -45,6 +45,14 @@ const user = {
   dragOn: false,
 };
 
+let allColors = getAll('.color');
+
+// functions for variables
+
+function attVariables() {
+  allColors = getAll('.color');
+}
+
 // functions for the project
 
 function getElementSize(element) {
@@ -104,9 +112,7 @@ function saveColor(color) {
 }
 
 function getColor() {
-  const palette = getAll('.color');
-
-  palette.forEach((color) => {
+  allColors.forEach((color) => {
     color.addEventListener('click', (event) => {
       const selectColor = getComputedStyle(event.target).backgroundColor;
       saveColor(selectColor);
@@ -131,9 +137,7 @@ function resetSelection() {
 }
 
 function changeSelection() {
-  const palette = getAll('.color');
-
-  palette.forEach((color) => {
+  allColors.forEach((color) => {
     color.addEventListener('click', (event) => {
       resetSelection();
       addClass(event.target, 'selected');
@@ -167,7 +171,6 @@ function getNumbersColors() {
 
 function resetColors() {
   const colorPalette = getOne('#color-palette');
-  const allColors = getAll('.color');
 
   allColors.forEach((color) => {
     removeOfHtml(colorPalette, color);
@@ -185,6 +188,7 @@ function generateColors() {
       addClass(newColor, 'color');
       plugHtml(colorPalette, newColor);
     };
+    attVariables();
     randomColorGenerator();
     getColor();
   });
@@ -226,10 +230,8 @@ function applyNewBoardSize() {
 }
 
 function randomColorGenerator() {
-  const colors = getAll('.color');
-
-  for (let i = 1; i < colors.length; i += 1) {
-    colors[i].style.backgroundColor = `rgb(${Math.random() * 255},
+  for (let i = 1; i < allColors.length; i += 1) {
+    allColors[i].style.backgroundColor = `rgb(${Math.random() * 255},
      ${Math.random() * 255},${Math.random() * 255})`;
   }
 }
