@@ -17,6 +17,9 @@
   background-color: #8cffd1;
   border: none;
 }
+.board-inputs::placeholder {
+  color: #171717;
+}
 .btn {
   background-color: #a5a5a5;
   border-style: none;
