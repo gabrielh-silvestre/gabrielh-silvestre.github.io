@@ -261,6 +261,8 @@ function controlDrag(event) {
   } else if(event.type === 'mouseup') {
     user.dragOn = false;
   }
+  const main = getOne('main');
+  main.addEventListener('mouseup', () => {user.dragOn = false})
 }
 
 function dragAndColor(event) {
