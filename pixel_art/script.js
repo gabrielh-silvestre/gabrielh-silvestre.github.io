@@ -28,6 +28,14 @@ function removeOfHtml(fatherElement, sonElement) {
   fatherElement.removeChild(sonElement);
 }
 
+function addMultiplesEvents(element, eventsName, listener) {
+  const events = eventsName.split(' ');
+
+  events.forEach((event) => {
+    element.addEventListener(event, listener, false);
+  });
+}
+
 // universal variables
 
 const user = {
