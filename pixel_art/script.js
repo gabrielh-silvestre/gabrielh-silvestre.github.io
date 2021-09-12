@@ -211,6 +211,7 @@ function applyNewBoardSize() {
       generatorPixelLine(parseInt(user.boardSize, 10));
       paintingPixel();
       clearPainting();
+      dragAndColor();
     }
   });
 }
