@@ -160,9 +160,11 @@ function clearPainting() {
 function getNumbersColors() {
   const nColors = getOne('#many-colors');
 
-  nColors.addEventListener('input', (event) => {
+  nColors.addEventListener('keyup', (event) => {
     if (event.target.value === '') {
       user.numberColor = 4;
+    } else if (event.which === 13) {
+      applyGeneratedColors();
     } else {
       user.numberColor = validLimit(4, 32, event.target.value);
     }
@@ -179,19 +181,22 @@ function resetColors() {
 
 function generateColors() {
   const colorButton = getOne('#generate-colors');
+
+  colorButton.addEventListener('click', applyGeneratedColors);
+}
+
+function applyGeneratedColors() {
   const colorPalette = getOne('#color-palette');
 
-  colorButton.addEventListener('click', () => {
-    resetColors();
-    for (let i = 0; i < parseInt(user.numberColor, 10); i += 1) {
-      const newColor = createElement('div');
-      addClass(newColor, 'color');
-      plugHtml(colorPalette, newColor);
-    };
-    attVariables();
-    randomColorGenerator();
-    getColor();
-  });
+  resetColors();
+  for (let i = 0; i < parseInt(user.numberColor, 10); i += 1) {
+    const newColor = createElement('div');
+    addClass(newColor, 'color');
+    plugHtml(colorPalette, newColor);
+  };
+  attVariables();
+  randomColorGenerator();
+  getColor();
 }
 
 function customizeBoardSize() {
