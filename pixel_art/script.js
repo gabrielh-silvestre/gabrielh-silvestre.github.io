@@ -266,7 +266,6 @@ function applyNewBoardSize() {
   generatorPixelLine(parseInt(user.boardSize, 10));
   clearPainting();
   generateDrag();
-  dragAndColor();
 }
 
 function randomColorGenerator() {
