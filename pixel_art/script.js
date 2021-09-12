@@ -177,6 +177,8 @@ function clearPainting() {
   const resetButton = getOne('#clear-board');
 
   resetButton.addEventListener('click', () => {
+    user.eraser = false;
+    removeClass(getOne('#eraser'), 'eraser-active');
     pixels.forEach((pixel) => {
       const pixelColor = pixel.style;
       pixelColor.backgroundColor = 'white';
@@ -276,16 +278,17 @@ function randomColorGenerator() {
 
 function changeToErase() {
   const eraser = getOne('#eraser');
+  eraser.addEventListener('click', controlEraser);
+}
 
-  eraser.addEventListener('click', (event) => {
-    if (user.eraser) {
-      user.eraser = false;
-      removeClass(event.target, 'eraser-active');
-    } else {
-      user.eraser = true;
-      addClass(event.target, 'eraser-active');
-    }
-  });
+function controlEraser(event) {
+  if (user.eraser) {
+    user.eraser = false;
+    removeClass(event.target, 'eraser-active');
+  } else {
+    user.eraser = true;
+    addClass(event.target, 'eraser-active');
+  }
 }
 
 window.onload = () => {
