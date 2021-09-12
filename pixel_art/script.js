@@ -177,6 +177,7 @@ function generateColors() {
       plugHtml(colorPalette, newColor);
     };
     randomColorGenerator();
+    getColor();
   });
 }
 
