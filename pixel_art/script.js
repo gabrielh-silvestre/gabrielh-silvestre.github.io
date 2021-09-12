@@ -43,6 +43,7 @@ const user = {
   boardSize: '',
   numberColor: 4,
   dragOn: false,
+  eraser: false,
 };
 
 let allColors = getAll('.color');
@@ -274,10 +275,25 @@ function dragAndColor(event) {
   }
 }
 
+function changeToErase() {
+  const eraser = getOne('#eraser');
+
+  eraser.addEventListener('click', (event) => {
+    if (user.eraser) {
+      user.eraser = false;
+      removeClass(event.target, 'eraser-active');
+    } else {
+      user.eraser = true;
+      addClass(event.target, 'eraser-active');
+    }
+  });
+}
+
 window.onload = () => {
   randomColorGenerator();
   generatorPixelRow(5);
   generatorPixelLine(5);
+  changeToErase();
   getColor();
   paintingPixel();
   clearPainting();
