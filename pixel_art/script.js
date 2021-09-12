@@ -34,6 +34,7 @@ const user = {
   paintingColor: 'black',
   boardSize: '',
   numberColor: 4,
+  dragOn: false,
 };
 
 // functions for the project
@@ -223,6 +224,19 @@ function randomColorGenerator() {
   }
 }
 
+function dragAndColor() {
+  const pxs = getAll('.pixel');
+
+  pxs.forEach((px) => {
+    px.addEventListener('mouseover', (event) => {
+      const tempColor = event.target.style;
+      if (event.shiftKey) {
+        tempColor.backgroundColor = user.paintingColor;
+      }
+    });
+  });
+}
+
 window.onload = () => {
   randomColorGenerator();
   generatorPixelRow(5);
@@ -235,4 +249,5 @@ window.onload = () => {
   getNumbersColors();
   generateColors();
   applyNewBoardSize();
+  dragAndColor();
 };
