@@ -61,19 +61,19 @@ function generatorSize(element, numberOfElements) {
   return [width, height];
 }
 
-function validLimit(limit) {
+function validLimit(min, max, limit) {
   let newLimit = limit;
-  if (limit > 50) {
-    newLimit = 50;
-  } else if (limit < 5) {
-    newLimit = 5;
+  if (limit > max) {
+    newLimit = max;
+  } else if (limit < min) {
+    newLimit = min;
   }
   return newLimit;
 }
 
 function generatorPixelLine(limit) {
   const rows = getAll('.pixel-row');
-  const validatedLimit = validLimit(limit);
+  const validatedLimit = validLimit(5, 100, limit);
   const width = generatorSize('#pixel-board', validatedLimit)[0];
   const height = generatorSize('#pixel-board', validatedLimit)[1];
 
@@ -90,7 +90,7 @@ function generatorPixelLine(limit) {
 
 function generatorPixelRow(limit) {
   const canvas = getOne('#pixel-board');
-  const validatedLimit = validLimit(limit);
+  const validatedLimit = validLimit(5, 100, limit);
 
   for (let i = 0; i < validatedLimit; i += 1) {
     const row = createElement('div');
@@ -160,7 +160,7 @@ function getNumbersColors() {
     if (event.target.value === '') {
       user.numberColor = 4;
     } else {
-      user.numberColor = event.target.value;
+      user.numberColor = validLimit(4, 32, event.target.value);
     }
   });
 }
