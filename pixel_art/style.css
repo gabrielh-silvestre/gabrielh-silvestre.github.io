@@ -63,6 +63,7 @@
   border-style: none;
   border-radius: 7px;
   padding: 2px 10px;
+  max-width: 250px;
 }
 .board-btn {
   border-style: none;
