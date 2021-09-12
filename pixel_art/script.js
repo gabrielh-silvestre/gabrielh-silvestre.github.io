@@ -116,6 +116,7 @@ function getColor() {
     color.addEventListener('click', (event) => {
       const selectColor = getComputedStyle(event.target).backgroundColor;
       saveColor(selectColor);
+      changeSelection(event);
     });
   });
 }
@@ -133,16 +134,14 @@ function paintingPixel() {
 
 function resetSelection() {
   const selectedColor = getOne('.selected');
-  removeClass(selectedColor, 'selected');
+  if (selectedColor !== null) {
+    removeClass(selectedColor, 'selected');
+  }
 }
 
-function changeSelection() {
-  allColors.forEach((color) => {
-    color.addEventListener('click', (event) => {
-      resetSelection();
-      addClass(event.target, 'selected');
-    });
-  });
+function changeSelection(event) {
+  resetSelection();
+  addClass(event.target, 'selected');
 }
 
 function clearPainting() {
@@ -279,7 +278,6 @@ window.onload = () => {
   generatorPixelLine(5);
   getColor();
   paintingPixel();
-  changeSelection();
   clearPainting();
   customizeBoardSize();
   getNumbersColors();
