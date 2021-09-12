@@ -122,15 +122,42 @@ function getColor() {
   });
 }
 
-function paintingPixel() {
-  const allPixels = getAll('.pixel');
+function generateDrag() {
+  const pxs = getAll('.pixel');
 
-  allPixels.forEach((pixel) => {
-    pixel.addEventListener('click', (event) => {
-      const pixelColor = event.target.style;
-      pixelColor.backgroundColor = user.paintingColor;
-    });
+  pxs.forEach((px) => {
+    addMultiplesEvents(px, 'mousedown mouseup mouseover', dragAndColor)
   });
+}
+
+function controlDrag(event) {
+  if(event.type === 'mousedown') {
+    user.dragOn = true;
+  } else if(event.type === 'mouseup') {
+    user.dragOn = false;
+  }
+  const main = getOne('main');
+  main.addEventListener('mouseup', () => {user.dragOn = false})
+}
+
+function dragAndColor(event) {
+  controlDrag(event);
+
+  if(user.dragOn && !user.eraser) {
+    paintingPixel(event);
+  } else if (user.dragOn && user.eraser) {
+    erasePixel(event);
+  }
+}
+
+function paintingPixel(event) {
+  const pixelColor = event.target.style;
+  pixelColor.backgroundColor = user.paintingColor;
+}
+
+function erasePixel(event) {
+  const pixelColor = event.target.style;
+  pixelColor.backgroundColor = 'white';
 }
 
 function resetSelection() {
@@ -235,7 +262,6 @@ function applyNewBoardSize() {
   resetCanvas();
   generatorPixelRow(parseInt(user.boardSize, 10));
   generatorPixelLine(parseInt(user.boardSize, 10));
-  paintingPixel();
   clearPainting();
   generateDrag();
   dragAndColor();
@@ -245,33 +271,6 @@ function randomColorGenerator() {
   for (let i = 1; i < allColors.length; i += 1) {
     allColors[i].style.backgroundColor = `rgb(${Math.random() * 255},
      ${Math.random() * 255},${Math.random() * 255})`;
-  }
-}
-
-function generateDrag() {
-  const pxs = getAll('.pixel');
-
-  pxs.forEach((px) => {
-    addMultiplesEvents(px, 'mousedown mouseup mouseover', dragAndColor)
-  });
-}
-
-function controlDrag(event) {
-  if(event.type === 'mousedown') {
-    user.dragOn = true;
-  } else if(event.type === 'mouseup') {
-    user.dragOn = false;
-  }
-  const main = getOne('main');
-  main.addEventListener('mouseup', () => {user.dragOn = false})
-}
-
-function dragAndColor(event) {
-  controlDrag(event);
-
-  if(user.dragOn) {
-    const pixelColor = event.target.style;
-    pixelColor.backgroundColor = user.paintingColor;
   }
 }
 
@@ -295,7 +294,6 @@ window.onload = () => {
   generatorPixelLine(5);
   changeToErase();
   getColor();
-  paintingPixel();
   clearPainting();
   customizeBoardSize();
   getNumbersColors();
