@@ -28,6 +28,14 @@ function removeOfHtml(fatherElement, sonElement) {
   fatherElement.removeChild(sonElement);
 }
 
+function addMultiplesEvents(element, eventsName, listener) {
+  const events = eventsName.split(' ');
+
+  events.forEach((event) => {
+    element.addEventListener(event, listener, false);
+  });
+}
+
 // universal variables
 
 const user = {
@@ -35,7 +43,16 @@ const user = {
   boardSize: '',
   numberColor: 4,
   dragOn: false,
+  eraser: false,
 };
+
+let allColors = getAll('.color');
+
+// functions for variables
+
+function attVariables() {
+  allColors = getAll('.color');
+}
 
 // functions for the project
 
@@ -53,19 +70,19 @@ function generatorSize(element, numberOfElements) {
   return [width, height];
 }
 
-function validLimit(limit) {
+function validLimit(min, max, limit) {
   let newLimit = limit;
-  if (limit > 50) {
-    newLimit = 50;
-  } else if (limit < 5) {
-    newLimit = 5;
+  if (limit > max) {
+    newLimit = max;
+  } else if (limit < min) {
+    newLimit = min;
   }
   return newLimit;
 }
 
 function generatorPixelLine(limit) {
   const rows = getAll('.pixel-row');
-  const validatedLimit = validLimit(limit);
+  const validatedLimit = validLimit(5, 100, limit);
   const width = generatorSize('#pixel-board', validatedLimit)[0];
   const height = generatorSize('#pixel-board', validatedLimit)[1];
 
@@ -82,7 +99,7 @@ function generatorPixelLine(limit) {
 
 function generatorPixelRow(limit) {
   const canvas = getOne('#pixel-board');
-  const validatedLimit = validLimit(limit);
+  const validatedLimit = validLimit(5, 100, limit);
 
   for (let i = 0; i < validatedLimit; i += 1) {
     const row = createElement('div');
@@ -96,41 +113,63 @@ function saveColor(color) {
 }
 
 function getColor() {
-  const palette = getAll('.color');
-
-  palette.forEach((color) => {
+  allColors.forEach((color) => {
     color.addEventListener('click', (event) => {
       const selectColor = getComputedStyle(event.target).backgroundColor;
       saveColor(selectColor);
+      changeSelection(event);
     });
   });
 }
 
-function paintingPixel() {
-  const allPixels = getAll('.pixel');
+function generateDrag() {
+  const pxs = getAll('.pixel');
 
-  allPixels.forEach((pixel) => {
-    pixel.addEventListener('click', (event) => {
-      const pixelColor = event.target.style;
-      pixelColor.backgroundColor = user.paintingColor;
-    });
+  pxs.forEach((px) => {
+    addMultiplesEvents(px, 'mousedown mouseup mouseover', dragAndColor)
   });
+}
+
+function controlDrag(event) {
+  if(event.type === 'mousedown') {
+    user.dragOn = true;
+  } else if(event.type === 'mouseup') {
+    user.dragOn = false;
+  }
+  const main = getOne('main');
+  main.addEventListener('mouseup', () => {user.dragOn = false})
+}
+
+function dragAndColor(event) {
+  controlDrag(event);
+
+  if(user.dragOn && !user.eraser) {
+    paintingPixel(event);
+  } else if (user.dragOn && user.eraser) {
+    erasePixel(event);
+  }
+}
+
+function paintingPixel(event) {
+  const pixelColor = event.target.style;
+  pixelColor.backgroundColor = user.paintingColor;
+}
+
+function erasePixel(event) {
+  const pixelColor = event.target.style;
+  pixelColor.backgroundColor = 'white';
 }
 
 function resetSelection() {
   const selectedColor = getOne('.selected');
-  removeClass(selectedColor, 'selected');
+  if (selectedColor !== null) {
+    removeClass(selectedColor, 'selected');
+  }
 }
 
-function changeSelection() {
-  const palette = getAll('.color');
-
-  palette.forEach((color) => {
-    color.addEventListener('click', (event) => {
-      resetSelection();
-      addClass(event.target, 'selected');
-    });
-  });
+function changeSelection(event) {
+  resetSelection();
+  addClass(event.target, 'selected');
 }
 
 function clearPainting() {
@@ -138,6 +177,8 @@ function clearPainting() {
   const resetButton = getOne('#clear-board');
 
   resetButton.addEventListener('click', () => {
+    user.eraser = false;
+    removeClass(getOne('#eraser'), 'eraser-active');
     pixels.forEach((pixel) => {
       const pixelColor = pixel.style;
       pixelColor.backgroundColor = 'white';
@@ -148,18 +189,19 @@ function clearPainting() {
 function getNumbersColors() {
   const nColors = getOne('#many-colors');
 
-  nColors.addEventListener('input', (event) => {
+  nColors.addEventListener('keyup', (event) => {
     if (event.target.value === '') {
       user.numberColor = 4;
+    } else if (event.which === 13) {
+      applyGeneratedColors();
     } else {
-      user.numberColor = event.target.value;
+      user.numberColor = validLimit(4, 32, event.target.value);
     }
   });
 }
 
 function resetColors() {
   const colorPalette = getOne('#color-palette');
-  const allColors = getAll('.color');
 
   allColors.forEach((color) => {
     removeOfHtml(colorPalette, color);
@@ -168,25 +210,32 @@ function resetColors() {
 
 function generateColors() {
   const colorButton = getOne('#generate-colors');
+
+  colorButton.addEventListener('click', applyGeneratedColors);
+}
+
+function applyGeneratedColors() {
   const colorPalette = getOne('#color-palette');
 
-  colorButton.addEventListener('click', () => {
-    resetColors();
-    for (let i = 0; i < parseInt(user.numberColor, 10); i += 1) {
-      const newColor = createElement('div');
-      addClass(newColor, 'color');
-      plugHtml(colorPalette, newColor);
-    };
-    randomColorGenerator();
-    getColor();
-  });
+  resetColors();
+  for (let i = 0; i < parseInt(user.numberColor, 10); i += 1) {
+    const newColor = createElement('div');
+    addClass(newColor, 'color');
+    plugHtml(colorPalette, newColor);
+  };
+  attVariables();
+  randomColorGenerator();
+  getColor();
 }
 
 function customizeBoardSize() {
   const newBoardSize = getOne('#board-size');
 
-  newBoardSize.addEventListener('input', (event) => {
+  newBoardSize.addEventListener('keyup', (event) => {
     user.boardSize = event.target.value;
+    if (event.which === 13) {
+      applyNewBoardSize();
+    }
   });
 }
 
@@ -199,56 +248,59 @@ function resetCanvas() {
   });
 }
 
-function applyNewBoardSize() {
+function validateNewBoardSize() {
   const generateButton = getOne('#generate-board');
 
   generateButton.addEventListener('click', () => {
     if (user.boardSize === '') {
       alert('Board inválido!');
     } else {
-      resetCanvas();
-      generatorPixelRow(parseInt(user.boardSize, 10));
-      generatorPixelLine(parseInt(user.boardSize, 10));
-      paintingPixel();
-      clearPainting();
-      dragAndColor();
+      applyNewBoardSize();
     }
   });
 }
 
-function randomColorGenerator() {
-  const colors = getAll('.color');
+function applyNewBoardSize() {
+  resetCanvas();
+  generatorPixelRow(parseInt(user.boardSize, 10));
+  generatorPixelLine(parseInt(user.boardSize, 10));
+  clearPainting();
+  generateDrag();
+  dragAndColor();
+}
 
-  for (let i = 1; i < colors.length; i += 1) {
-    colors[i].style.backgroundColor = `rgb(${Math.random() * 255},
+function randomColorGenerator() {
+  for (let i = 1; i < allColors.length; i += 1) {
+    allColors[i].style.backgroundColor = `rgb(${Math.random() * 255},
      ${Math.random() * 255},${Math.random() * 255})`;
   }
 }
 
-function dragAndColor() {
-  const pxs = getAll('.pixel');
+function changeToErase() {
+  const eraser = getOne('#eraser');
+  eraser.addEventListener('click', controlEraser);
+}
 
-  pxs.forEach((px) => {
-    px.addEventListener('mouseover', (event) => {
-      const tempColor = event.target.style;
-      if (event.shiftKey) {
-        tempColor.backgroundColor = user.paintingColor;
-      }
-    });
-  });
+function controlEraser(event) {
+  if (user.eraser) {
+    user.eraser = false;
+    removeClass(event.target, 'eraser-active');
+  } else {
+    user.eraser = true;
+    addClass(event.target, 'eraser-active');
+  }
 }
 
 window.onload = () => {
   randomColorGenerator();
   generatorPixelRow(5);
   generatorPixelLine(5);
+  changeToErase();
   getColor();
-  paintingPixel();
-  changeSelection();
   clearPainting();
   customizeBoardSize();
   getNumbersColors();
   generateColors();
-  applyNewBoardSize();
-  dragAndColor();
+  validateNewBoardSize();
+  generateDrag();
 };
