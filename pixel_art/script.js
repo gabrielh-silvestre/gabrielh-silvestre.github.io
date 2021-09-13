@@ -40,6 +40,7 @@ function addMultiplesEvents(element, eventsName, listener) {
 
 const user = {
   paintingColor: 'black',
+  colorPalette: '',
   boardSize: '',
   numberColor: 4,
   dragOn: false,
@@ -276,18 +277,33 @@ function applyNewBoardSize() {
 function randomColorGenerator() {
   const colorArr = [];
   for (let i = 1; i < allColors.length; i += 1) {
-    colorArr.push(`rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`);
+    colorArr.push(`rgb(${Math.floor(Math.random() * 255)};${Math.floor(Math.random() * 255)};${Math.floor(Math.random() * 255)})`);
   }
 
   return colorArr;
 }
 
+function encodeColors(str) {
+  return str.replaceAll(',', ';')
+}
+
+function decodeColors(str) {
+  return str.toString().replaceAll(';', ',');
+}
+
 function applyGeneratedColors() {
-  const colorPalette = getAll('.color');
   const newColors = randomColorGenerator();
 
   newColors.forEach((color, i) => {
-    colorPalette[i + 1].style.backgroundColor = color;
+    allColors[i + 1].style.backgroundColor = decodeColors(color);
+  });
+}
+
+function applyUserColors() {
+  const savedColors = user.colorPalette.split(',');
+
+  savedColors.forEach((color, i) => {
+    allColors[i + 1].style.backgroundColor = decodeColors(color)
   });
 }
 
@@ -304,6 +320,16 @@ function controlEraser(event) {
     user.eraser = true;
     addClass(event.target, 'eraser-active');
   }
+}
+
+function getColorsData() {
+  const saveArr = [];
+
+  allColors.forEach((color) => {
+    saveArr.push(encodeColors(color.style.backgroundColor));
+  });
+
+  return saveArr.slice(1);
 }
 
 function controlUserData(key, data) {
@@ -332,12 +358,19 @@ function storeUserData() {
   const tempStore = getOne('h1');
 
   tempStore.addEventListener('click', () => {
-    controlUserData('colors', randomColorGenerator());
+    controlUserData('colors', getColorsData());
   });
 }
 
+function restoreUserSection() {
+  const userColors = localStorage.colors;
+
+  user.colorPalette = userColors;
+}
+
 window.onload = () => {
-  applyGeneratedColors();
+  restoreUserSection();
+  applyUserColors();
   generatorPixelRow(5);
   generatorPixelLine(5);
   changeToErase();
@@ -348,5 +381,6 @@ window.onload = () => {
   generateColors();
   validateNewBoardSize();
   generateDrag();
+  getColorsData();
   storeUserData();
 };
