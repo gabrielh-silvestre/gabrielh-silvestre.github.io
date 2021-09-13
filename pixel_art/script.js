@@ -199,7 +199,7 @@ function getNumbersColors() {
     if (event.target.value === '') {
       user.numberColor = 4;
     } else if (event.which === 13) {
-      generateNewPalette();
+      generatePalette();
     } else {
       user.numberColor = validLimit(4, 32, event.target.value);
     }
@@ -217,13 +217,19 @@ function resetColors() {
 function generateColors() {
   const colorButton = getOne('#generate-colors');
 
-  colorButton.addEventListener('click', generateNewPalette);
+  colorButton.addEventListener('click', generatePalette);
 }
 
-function generateNewPalette() {
+function generatePalette() {
   const colorPalette = getOne('#color-palette');
 
   resetColors();
+  generateFirstPalette();
+}
+
+function generateFirstPalette() {
+  const colorPalette = getOne('#color-palette');
+
   for (let i = 0; i < parseInt(user.numberColor, 10); i += 1) {
     const newColor = createElement('div');
     addClass(newColor, 'color');
@@ -339,6 +345,10 @@ function getBoardSizesData() {
   return user.boardSize;
 }
 
+function getPaletteSize() {
+  return `${user.numberColor}`;
+}
+
 function controlUserData(key, data) {
   if (key in localStorage) {
     getUserData(key, data);
@@ -364,18 +374,22 @@ function getUserData(key, data) {
 function storeUserData() {
   controlUserData('colors', getColorsData());
   controlUserData('boardSize', getBoardSizesData());
+  controlUserData('colorPaletteSize', getPaletteSize());
 }
 
 function restoreUserSection() {
   const userColors = localStorage.colors,
-        boardSize = localStorage.boardSize;
+        boardSize = localStorage.boardSize,
+        paletteSize = localStorage.colorPaletteSize;
 
   user.colorPalette = userColors;
   user.boardSize = boardSize;
+  user.numberColor = paletteSize;
 }
 
 window.onload = () => {
   restoreUserSection();
+  generateFirstPalette();
   applyUserColors();
   generatorPixelRow(user.boardSize);
   generatorPixelLine(user.boardSize);
