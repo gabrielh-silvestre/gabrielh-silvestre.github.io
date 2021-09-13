@@ -316,6 +316,14 @@ function applyUserColors() {
   });
 }
 
+function applyColors() {
+  if (user.colorPalette === '') {
+    applyGeneratedColors();
+  } else {
+    applyUserColors();
+  }
+}
+
 function changeToErase() {
   const eraser = getOne('#eraser');
   eraser.addEventListener('click', controlEraser);
@@ -387,10 +395,18 @@ function restoreUserSection() {
   user.numberColor = paletteSize;
 }
 
+function controlInitialization() {
+  if (localStorage.colors === undefined && localStorage.boardSize === undefined) {
+
+  } else {
+    restoreUserSection();
+  }
+}
+
 window.onload = () => {
-  restoreUserSection();
+  controlInitialization();
   generateFirstPalette();
-  applyUserColors();
+  applyColors();
   generatorPixelRow(user.boardSize);
   generatorPixelLine(user.boardSize);
   changeToErase();
