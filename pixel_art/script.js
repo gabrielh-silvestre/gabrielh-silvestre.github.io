@@ -306,6 +306,36 @@ function controlEraser(event) {
   }
 }
 
+function controlUserData(key, data) {
+  if (key in localStorage) {
+    getUserData(key, data);
+  } else {
+    setUserData(key, data);
+  }
+}
+
+function setUserData(key, data) {
+  if (typeof key === 'string' && typeof data === 'string') {
+    localStorage.setItem(key, data)
+  } else {
+    JSON.stringify(key);
+    JSON.stringify(data);
+    localStorage.setItem(key, data)
+  }
+}
+
+function getUserData(key, data) {
+  localStorage[key] = data;
+}
+
+function storeUserData() {
+  const tempStore = getOne('h1');
+
+  tempStore.addEventListener('click', () => {
+    controlUserData('colors', randomColorGenerator());
+  });
+}
+
 window.onload = () => {
   applyGeneratedColors();
   generatorPixelRow(5);
@@ -318,4 +348,5 @@ window.onload = () => {
   generateColors();
   validateNewBoardSize();
   generateDrag();
+  storeUserData();
 };
