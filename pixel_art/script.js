@@ -232,6 +232,7 @@ function generateNewPalette() {
   attVariables();
   applyGeneratedColors();
   getColor();
+  storeUserData();
 }
 
 function customizeBoardSize() {
@@ -355,11 +356,7 @@ function getUserData(key, data) {
 }
 
 function storeUserData() {
-  const tempStore = getOne('h1');
-
-  tempStore.addEventListener('click', () => {
-    controlUserData('colors', getColorsData());
-  });
+  controlUserData('colors', getColorsData());
 }
 
 function restoreUserSection() {
