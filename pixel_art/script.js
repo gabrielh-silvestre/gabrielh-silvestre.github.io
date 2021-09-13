@@ -40,7 +40,8 @@ function addMultiplesEvents(element, eventsName, listener) {
 
 const user = {
   paintingColor: 'black',
-  boardSize: '',
+  colorPalette: '',
+  boardSize: '5',
   numberColor: 4,
   dragOn: false,
   eraser: false,
@@ -118,6 +119,7 @@ function getColor() {
       const selectColor = getComputedStyle(event.target).backgroundColor;
       saveColor(selectColor);
       changeSelection(event);
+      resetEraser();
     });
   });
 }
@@ -160,6 +162,11 @@ function erasePixel(event) {
   pixelColor.backgroundColor = 'white';
 }
 
+function resetEraser() {
+  user.eraser = false;
+  removeClass(getOne('#eraser'), 'eraser-active');
+}
+
 function resetSelection() {
   const selectedColor = getOne('.selected');
   if (selectedColor !== null) {
@@ -177,8 +184,7 @@ function clearPainting() {
   const resetButton = getOne('#clear-board');
 
   resetButton.addEventListener('click', () => {
-    user.eraser = false;
-    removeClass(getOne('#eraser'), 'eraser-active');
+    resetEraser();
     pixels.forEach((pixel) => {
       const pixelColor = pixel.style;
       pixelColor.backgroundColor = 'white';
@@ -193,7 +199,7 @@ function getNumbersColors() {
     if (event.target.value === '') {
       user.numberColor = 4;
     } else if (event.which === 13) {
-      applyGeneratedColors();
+      generatePalette();
     } else {
       user.numberColor = validLimit(4, 32, event.target.value);
     }
@@ -211,21 +217,28 @@ function resetColors() {
 function generateColors() {
   const colorButton = getOne('#generate-colors');
 
-  colorButton.addEventListener('click', applyGeneratedColors);
+  colorButton.addEventListener('click', generatePalette);
 }
 
-function applyGeneratedColors() {
+function generatePalette() {
   const colorPalette = getOne('#color-palette');
 
   resetColors();
+  generateFirstPalette();
+}
+
+function generateFirstPalette() {
+  const colorPalette = getOne('#color-palette');
+
   for (let i = 0; i < parseInt(user.numberColor, 10); i += 1) {
     const newColor = createElement('div');
     addClass(newColor, 'color');
     plugHtml(colorPalette, newColor);
   };
   attVariables();
-  randomColorGenerator();
+  applyGeneratedColors();
   getColor();
+  storeUserData();
 }
 
 function customizeBoardSize() {
@@ -235,6 +248,7 @@ function customizeBoardSize() {
     user.boardSize = event.target.value;
     if (event.which === 13) {
       applyNewBoardSize();
+      storeUserData();
     }
   });
 }
@@ -256,6 +270,7 @@ function validateNewBoardSize() {
       alert('Board inválido!');
     } else {
       applyNewBoardSize();
+      storeUserData();
     }
   });
 }
@@ -269,10 +284,36 @@ function applyNewBoardSize() {
 }
 
 function randomColorGenerator() {
+  const colorArr = [];
   for (let i = 1; i < allColors.length; i += 1) {
-    allColors[i].style.backgroundColor = `rgb(${Math.random() * 255},
-     ${Math.random() * 255},${Math.random() * 255})`;
+    colorArr.push(`rgb(${Math.floor(Math.random() * 255)};${Math.floor(Math.random() * 255)};${Math.floor(Math.random() * 255)})`);
   }
+
+  return colorArr;
+}
+
+function encodeColors(str) {
+  return str.replaceAll(',', ';')
+}
+
+function decodeColors(str) {
+  return str.toString().replaceAll(';', ',');
+}
+
+function applyGeneratedColors() {
+  const newColors = randomColorGenerator();
+
+  newColors.forEach((color, i) => {
+    allColors[i + 1].style.backgroundColor = decodeColors(color);
+  });
+}
+
+function applyUserColors() {
+  const savedColors = user.colorPalette.split(',');
+
+  savedColors.forEach((color, i) => {
+    allColors[i + 1].style.backgroundColor = decodeColors(color)
+  });
 }
 
 function changeToErase() {
@@ -290,10 +331,68 @@ function controlEraser(event) {
   }
 }
 
+function getColorsData() {
+  const saveArr = [];
+
+  allColors.forEach((color) => {
+    saveArr.push(encodeColors(color.style.backgroundColor));
+  });
+
+  return saveArr.slice(1);
+}
+
+function getBoardSizesData() {
+  return user.boardSize;
+}
+
+function getPaletteSize() {
+  return `${user.numberColor}`;
+}
+
+function controlUserData(key, data) {
+  if (key in localStorage) {
+    getUserData(key, data);
+  } else {
+    setUserData(key, data);
+  }
+}
+
+function setUserData(key, data) {
+  if (typeof key === 'string' && typeof data === 'string') {
+    localStorage.setItem(key, data)
+  } else {
+    JSON.stringify(key);
+    JSON.stringify(data);
+    localStorage.setItem(key, data)
+  }
+}
+
+function getUserData(key, data) {
+  localStorage[key] = data;
+}
+
+function storeUserData() {
+  controlUserData('colors', getColorsData());
+  controlUserData('boardSize', getBoardSizesData());
+  controlUserData('colorPaletteSize', getPaletteSize());
+}
+
+function restoreUserSection() {
+  const userColors = localStorage.colors,
+        boardSize = localStorage.boardSize,
+        paletteSize = localStorage.colorPaletteSize;
+
+  user.colorPalette = userColors;
+  user.boardSize = boardSize;
+  user.numberColor = paletteSize;
+}
+
 window.onload = () => {
-  randomColorGenerator();
-  generatorPixelRow(5);
-  generatorPixelLine(5);
+  restoreUserSection();
+  generateFirstPalette();
+  applyUserColors();
+  generatorPixelRow(user.boardSize);
+  generatorPixelLine(user.boardSize);
   changeToErase();
   getColor();
   clearPainting();
@@ -302,4 +401,6 @@ window.onload = () => {
   generateColors();
   validateNewBoardSize();
   generateDrag();
+  getColorsData();
+  storeUserData();
 };
