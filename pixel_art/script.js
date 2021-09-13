@@ -198,7 +198,7 @@ function getNumbersColors() {
     if (event.target.value === '') {
       user.numberColor = 4;
     } else if (event.which === 13) {
-      applyGeneratedColors();
+      generateNewPalette();
     } else {
       user.numberColor = validLimit(4, 32, event.target.value);
     }
@@ -216,10 +216,10 @@ function resetColors() {
 function generateColors() {
   const colorButton = getOne('#generate-colors');
 
-  colorButton.addEventListener('click', applyGeneratedColors);
+  colorButton.addEventListener('click', generateNewPalette);
 }
 
-function applyGeneratedColors() {
+function generateNewPalette() {
   const colorPalette = getOne('#color-palette');
 
   resetColors();
@@ -229,7 +229,7 @@ function applyGeneratedColors() {
     plugHtml(colorPalette, newColor);
   };
   attVariables();
-  randomColorGenerator();
+  applyGeneratedColors();
   getColor();
 }
 
@@ -274,10 +274,21 @@ function applyNewBoardSize() {
 }
 
 function randomColorGenerator() {
+  const colorArr = [];
   for (let i = 1; i < allColors.length; i += 1) {
-    allColors[i].style.backgroundColor = `rgb(${Math.random() * 255},
-     ${Math.random() * 255},${Math.random() * 255})`;
+    colorArr.push(`rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`);
   }
+
+  return colorArr;
+}
+
+function applyGeneratedColors() {
+  const colorPalette = getAll('.color');
+  const newColors = randomColorGenerator();
+
+  newColors.forEach((color, i) => {
+    colorPalette[i + 1].style.backgroundColor = color;
+  });
 }
 
 function changeToErase() {
@@ -296,7 +307,7 @@ function controlEraser(event) {
 }
 
 window.onload = () => {
-  randomColorGenerator();
+  applyGeneratedColors();
   generatorPixelRow(5);
   generatorPixelLine(5);
   changeToErase();
