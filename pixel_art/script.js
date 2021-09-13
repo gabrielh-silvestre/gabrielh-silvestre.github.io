@@ -405,10 +405,10 @@ function controlInitialization() {
 
 window.onload = () => {
   controlInitialization();
-  generateFirstPalette();
-  applyColors();
   generatorPixelRow(user.boardSize);
   generatorPixelLine(user.boardSize);
+  generateFirstPalette();
+  applyColors();
   changeToErase();
   getColor();
   clearPainting();
