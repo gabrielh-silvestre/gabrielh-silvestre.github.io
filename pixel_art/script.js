@@ -41,7 +41,7 @@ function addMultiplesEvents(element, eventsName, listener) {
 const user = {
   paintingColor: 'black',
   colorPalette: '',
-  boardSize: '',
+  boardSize: '5',
   numberColor: 4,
   dragOn: false,
   eraser: false,
@@ -242,6 +242,7 @@ function customizeBoardSize() {
     user.boardSize = event.target.value;
     if (event.which === 13) {
       applyNewBoardSize();
+      storeUserData();
     }
   });
 }
@@ -263,6 +264,7 @@ function validateNewBoardSize() {
       alert('Board inválido!');
     } else {
       applyNewBoardSize();
+      storeUserData();
     }
   });
 }
@@ -333,6 +335,10 @@ function getColorsData() {
   return saveArr.slice(1);
 }
 
+function getBoardSizesData() {
+  return user.boardSize;
+}
+
 function controlUserData(key, data) {
   if (key in localStorage) {
     getUserData(key, data);
@@ -357,19 +363,22 @@ function getUserData(key, data) {
 
 function storeUserData() {
   controlUserData('colors', getColorsData());
+  controlUserData('boardSize', getBoardSizesData());
 }
 
 function restoreUserSection() {
-  const userColors = localStorage.colors;
+  const userColors = localStorage.colors,
+        boardSize = localStorage.boardSize;
 
   user.colorPalette = userColors;
+  user.boardSize = boardSize;
 }
 
 window.onload = () => {
   restoreUserSection();
   applyUserColors();
-  generatorPixelRow(5);
-  generatorPixelLine(5);
+  generatorPixelRow(user.boardSize);
+  generatorPixelLine(user.boardSize);
   changeToErase();
   getColor();
   clearPainting();
