@@ -118,6 +118,7 @@ function getColor() {
       const selectColor = getComputedStyle(event.target).backgroundColor;
       saveColor(selectColor);
       changeSelection(event);
+      resetEraser();
     });
   });
 }
@@ -160,6 +161,11 @@ function erasePixel(event) {
   pixelColor.backgroundColor = 'white';
 }
 
+function resetEraser() {
+  user.eraser = false;
+  removeClass(getOne('#eraser'), 'eraser-active');
+}
+
 function resetSelection() {
   const selectedColor = getOne('.selected');
   if (selectedColor !== null) {
@@ -177,8 +183,7 @@ function clearPainting() {
   const resetButton = getOne('#clear-board');
 
   resetButton.addEventListener('click', () => {
-    user.eraser = false;
-    removeClass(getOne('#eraser'), 'eraser-active');
+    resetEraser();
     pixels.forEach((pixel) => {
       const pixelColor = pixel.style;
       pixelColor.backgroundColor = 'white';
