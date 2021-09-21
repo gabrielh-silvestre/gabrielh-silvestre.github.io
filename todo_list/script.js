@@ -1,33 +1,5 @@
 // functions for working with elements
 
-function getOne(element) {
-  return document.querySelector(element);
-}
-
-function getAll(element) {
-  return document.querySelectorAll(element);
-}
-
-function createElement(tag) {
-  return document.createElement(tag);
-}
-
-function addClass(element, newClass) {
-  element.classList.add(newClass);
-}
-
-function toggleClass(element, alternateClass) {
-  element.classList.toggle(alternateClass);
-}
-
-function removeClass(element, delClass) {
-  element.classList.remove(delClass);
-}
-
-function plugHtml(fatherElement, sonElement) {
-  fatherElement.appendChild(sonElement);
-}
-
 function addMultiplesListeners(arr, eventName, listener) {
   arr.forEach((element) => {
     element.addEventListener(eventName, listener, false);
@@ -52,32 +24,32 @@ const user = {
 };
 
 const staticElements = {
-  inputTextTask: getOne('#texto-tarefa'),
-  taskList: getOne('#lista-tarefas'),
-  buttonCreateTask: getOne('#criar-tarefa'),
-  buttonDeleteAll: getOne('#apaga-tudo'),
-  buttonDeleteDone: getOne('#remover-finalizados'),
-  buttonDeleteSelected: getOne('#remover-selecionado'),
-  buttonSave: getOne('#salvar-tarefas'),
-  buttonMoveUp: getOne('#mover-cima'),
-  buttonMoveDown: getOne('#mover-baixo'),
+  inputTextTask: document.querySelector('#texto-tarefa'),
+  taskList: document.querySelector('#lista-tarefas'),
+  buttonCreateTask: document.querySelector('#criar-tarefa'),
+  buttonDeleteAll: document.querySelector('#apaga-tudo'),
+  buttonDeleteDone: document.querySelector('#remover-finalizados'),
+  buttonDeleteSelected: document.querySelector('#remover-selecionado'),
+  buttonSave: document.querySelector('#salvar-tarefas'),
+  buttonMoveUp: document.querySelector('#mover-cima'),
+  buttonMoveDown: document.querySelector('#mover-baixo'),
 };
 
 // functions for the project
 
 function resetTaskSelection() {
   user.allTasks.forEach((task) => {
-    removeClass(task, 'selected');
+    task.classList.remove('selected');
   });
 }
 
 function selectTask(event) {
   resetTaskSelection();
-  addClass(event.target, 'selected');
+  event.target.classList.add('selected');
 }
 
 function completeTask(event) {
-  toggleClass(event.target, 'completed');
+  event.target.classList.toggle('completed');
 }
 
 function taskEvents(event) {
@@ -89,7 +61,7 @@ function taskEvents(event) {
 }
 
 function lintenTaskItem() {
-  const allTasks = getAll('li');
+  const allTasks = document.querySelectorAll('li');
   if (allTasks.length > 0) {
     addMultiplesEventsAndListeners(allTasks, 'click dblclick', taskEvents);
   }
@@ -108,7 +80,7 @@ function saveTask(taskItem) {
 }
 
 function createTask() {
-  const newTask = createElement('li');
+  const newTask = document.createElement('li');
   newTask.innerText = user.taskContent;
   saveTask(newTask);
 }
@@ -125,7 +97,7 @@ function resetAllTasks() {
 
 function renderTask() {
   user.allTasks.forEach((task) => {
-    plugHtml(staticElements.taskList, task);
+    staticElements.taskList.appendChild(task);
   });
   lintenTaskItem();
 }
@@ -211,7 +183,7 @@ function saveLocalStorage() {
 function renderSaveTasks() {
   const storageTasks = JSON.parse(localStorage.getItem('task'));
   staticElements.taskList.innerHTML = storageTasks;
-  getAll('li').forEach((task) => {
+  document.querySelectorAll('li').forEach((task) => {
     saveTask(task);
   });
 }
@@ -233,7 +205,7 @@ function execButton(event) {
 
 window.onload = () => {
   taskListInput();
-  addMultiplesListeners(getAll('button'), 'click', execButton);
+  addMultiplesListeners(document.querySelectorAll('button'), 'click', execButton);
   renderSaveTasks();
   lintenTaskItem();
 };
