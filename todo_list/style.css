@@ -27,6 +27,16 @@
 .selected {
   background-color: #808080;
 }
+#texto-tarefa {
+  border: 1px solid #6c757d;
+  border-radius: 10px;
+  display: none;
+  font-family: 'Sintony', sans-serif;
+  left: 180px;
+  outline: none;
+  position: absolute;
+  padding: 0.8rem 2rem;
+}
 .nav-bar ul {
   display: flex;
   justify-content: space-around;
