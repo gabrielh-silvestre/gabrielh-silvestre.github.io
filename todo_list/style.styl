@@ -7,19 +7,42 @@ font_sintony = 'Sintony', sans-serif;
   text-decoration-color: rgb(0, 0, 0)
 
 .container
-  width: calc(80% - 50px)
   margin: auto
-
-.selected
-  background-color: rgb(128, 128, 128)
+  width: calc(80% - 50px)
 
 #funcionamento
   font-family: font_sintony
   font-size: 0.8rem
+
+.selected
+  background-color: rgb(128, 128, 128)
+
+.nav-bar
+  ul
+    display flex
+    justify-content: space-around
+    list-style: none
+    a
+      color: black
+      font-family: font_sintony
+      padding: 0.2rem 0.8rem
+      text-decoration: none
+
+*
+  box-sizing: border-box
+  font-size: 100%
+  margin: 0
+  padding: 0
 
 h1
   font-family: font_sintony
   font-size: 2.5rem
 
 header
+  margin-bottom: 2rem 
+  padding: 1rem 0
   text-align: center
+  .container
+    align-items: center
+    display flex
+    justify-content: space-between

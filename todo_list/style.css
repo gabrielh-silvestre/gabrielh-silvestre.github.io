@@ -4,20 +4,44 @@
   text-decoration-color: #000;
 }
 .container {
-  width: calc(80% - 50px);
   margin: auto;
-}
-.selected {
-  background-color: #808080;
+  width: calc(80% - 50px);
 }
 #funcionamento {
   font-family: 'Sintony', sans-serif;
   font-size: 0.8rem;
+}
+.selected {
+  background-color: #808080;
+}
+.nav-bar ul {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+}
+.nav-bar ul a {
+  color: #000;
+  font-family: 'Sintony', sans-serif;
+  padding: 0.2rem 0.8rem;
+  text-decoration: none;
+}
+* {
+  box-sizing: border-box;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
 }
 h1 {
   font-family: 'Sintony', sans-serif;
   font-size: 2.5rem;
 }
 header {
+  margin-bottom: 2rem;
+  padding: 1rem 0;
   text-align: center;
+}
+header .container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
