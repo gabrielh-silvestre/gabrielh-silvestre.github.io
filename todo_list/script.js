@@ -199,7 +199,7 @@ const buttonsListeners = {
 };
 
 function execButton(event) {
-  const rightFunc = buttonsListeners[event.target.className];
+  const rightFunc = buttonsListeners[event.target.id];
   rightFunc();
 }
 
