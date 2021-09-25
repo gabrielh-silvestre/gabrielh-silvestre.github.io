@@ -27,6 +27,9 @@ light_gray = #6C757D;
   top: 40vh
   left: 0
 
+#lista-tarefas
+  list-style: none
+
 .section-config
   display: flex
   flex-direction: column
@@ -34,10 +37,16 @@ light_gray = #6C757D;
 .selected
   background-color: rgb(128, 128, 128)
 
+.task-item
+  font-family: font_dancing
+  font-size: 2rem
+  letter-spacing: 3px
+  padding: 1.2rem 1.6rem
+
 #texto-tarefa
   border: 1px solid light_gray
   border-radius: 10px
-  display: none
+  // display: none
   font-family: font_sintony
   left: 180px
   outline: none
@@ -74,8 +83,11 @@ header
   text-align: center
   .container
     align-items: center
-    display flex
+    display: flex
     justify-content: space-between
 
 main
-  height: 800px
+  border: 1px solid red
+  article
+    display: flex
+    justify-content: center
