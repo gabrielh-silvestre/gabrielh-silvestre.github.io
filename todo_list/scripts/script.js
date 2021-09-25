@@ -226,29 +226,37 @@ function execKeyCommand(event) {
 
 // Animation
 
-const showMenu = anime({
-  targets: '#general-configs-container',
-  translateX: 150,
-  easing: 'linear',
-  duration: 300,
-  autoplay: false,
-});
+function showMenu() {
+  const show = anime({
+    targets: '#general-configs-container',
+    translateX: 150,
+    easing: 'linear',
+    duration: 300,
+    autoplay: false,
+  });
 
-const hideMenu = anime({
-  targets: '#general-configs-container',
-  translateX: 150,
-  easing: 'linear',
-  direction:'reverse',
-  duration: 300,
-});
+  show.play()
+}
+
+function hideMenu() {
+  const hide = anime({
+    targets: '#general-configs-container',
+    translateX: 0,
+    easing: 'linear',
+    duration: 300,
+    autoplay: false,
+  });
+
+  hide.play();
+}
 
 function triggerControl() {
   if (!user.configMenu) {
     user.configMenu = true;
-    showMenu.play();
+    showMenu();
   } else {
     user.configMenu = false;
-    hideMenu.play();
+    hideMenu();
   }
 };
 
