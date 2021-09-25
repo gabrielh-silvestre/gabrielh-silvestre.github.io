@@ -39,8 +39,6 @@ const staticElements = {
   buttonDeleteDone: document.querySelector('#remover-finalizados'),
   buttonDeleteSelected: document.querySelector('#remover-selecionado'),
   buttonSave: document.querySelector('#salvar-tarefas'),
-  buttonMoveUp: document.querySelector('#mover-cima'),
-  buttonMoveDown: document.querySelector('#mover-baixo'),
   generalConfigs: document.querySelector('#general-configs-container'),
 };
 
@@ -204,14 +202,16 @@ const buttonsListeners = {
   apaga_tudo: deleteAllTasks,
   remover_finalizados: deleteDoneTasks,
   salvar_tarefas: saveLocalStorage,
-  mover_cima: moveUp,
-  mover_baixo: moveDown,
   remover_selecionado: deleteSelectedTask,
 };
 
 function execButton(event) {
   const rightFunc = buttonsListeners[event.target.id];
   rightFunc();
+}
+
+function moveUpAndDow() {
+  document.addEventListener('keyup', (event) => {event.key === 'ArrowUp' ? moveUp() : moveDown();});
 }
 
 // Animation
@@ -245,6 +245,7 @@ window.onload = () => {
   triggerShowMenu();
   taskListInput();
   addMultiplesListeners(document.querySelectorAll('button'), 'click', execButton);
+  moveUpAndDow();
   renderSaveTasks();
   lintenTaskItem();
 };
