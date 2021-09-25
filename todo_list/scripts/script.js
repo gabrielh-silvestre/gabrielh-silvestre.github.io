@@ -29,6 +29,7 @@ function addMultiplesEventsAndListeners(arr, eventsName, listener) {
 const user = {
   taskContent: '',
   allTasks: [],
+  configMenu: false,
 };
 
 const staticElements = {
@@ -226,32 +227,34 @@ function execKeyCommand(event) {
 // Animation
 
 const showMenu = anime({
-  targets: '#general-configs',
-  translateX: 173,
+  targets: '#general-configs-container',
+  translateX: 150,
+  easing: 'linear',
   duration: 300,
   autoplay: false,
-  easing: 'linear',
 });
 
 const hideMenu = anime({
-  targets: '#general-configs',
-  translateX: 173,
-  duration: 300,
-  autoplay: false,
+  targets: '#general-configs-container',
+  translateX: 150,
   easing: 'linear',
+  direction:'reverse',
+  duration: 300,
 });
 
-function triggerControl(event) {
-  event.type === 'mouseenter' ? showMenu.play() : hideMenu.play();
-};
-
-function triggerShowMenu() {
-  addMultiplesEvents(staticElements.generalConfigs, 'mouseenter mouseleave', triggerControl);
+function triggerControl() {
+  if (!user.configMenu) {
+    user.configMenu = true;
+    showMenu.play();
+  } else {
+    user.configMenu = false;
+    hideMenu.play();
+  }
 };
 
 window.onload = () => {
-  triggerShowMenu();
   taskListInput();
+  staticElements.generalConfigs.addEventListener('click', triggerControl);
   document.addEventListener('keyup', execKeyCommand);
   addMultiplesListeners(document.querySelectorAll('button'), 'click', execButton);
   renderSaveTasks();
