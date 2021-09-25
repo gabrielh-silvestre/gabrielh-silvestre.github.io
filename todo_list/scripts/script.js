@@ -235,7 +235,7 @@ function showMenu() {
     autoplay: false,
   });
 
-  show.play()
+  show.play();
 }
 
 function hideMenu() {
@@ -250,11 +250,11 @@ function hideMenu() {
   hide.play();
 }
 
-function triggerControl() {
-  if (!user.configMenu) {
+function triggerControl(event) {
+  if (event.target === staticElements.generalConfigs && !user.configMenu) {
     user.configMenu = true;
     showMenu();
-  } else {
+  } else if (event.target === staticElements.generalConfigs && user.configMenu) {
     user.configMenu = false;
     hideMenu();
   }
