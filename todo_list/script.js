@@ -61,7 +61,7 @@ function taskEvents(event) {
 }
 
 function lintenTaskItem() {
-  const allTasks = document.querySelectorAll('li');
+  const allTasks = document.querySelectorAll('.task-item');
   if (allTasks.length > 0) {
     addMultiplesEventsAndListeners(allTasks, 'click dblclick', taskEvents);
   }
@@ -81,6 +81,7 @@ function saveTask(taskItem) {
 
 function createTask() {
   const newTask = document.createElement('li');
+  newTask.classList.add('task-item');
   newTask.innerText = user.taskContent;
   saveTask(newTask);
 }
@@ -104,11 +105,12 @@ function renderTask() {
 
 function resetInput() {
   staticElements.inputTextTask.value = '';
+  user.taskContent = '';
 }
 
 function taskCreation() {
-  resetInput();
   createTask();
+  resetInput();
   resetTaskList();
   renderTask();
 }
@@ -183,7 +185,7 @@ function saveLocalStorage() {
 function renderSaveTasks() {
   const storageTasks = JSON.parse(localStorage.getItem('task'));
   staticElements.taskList.innerHTML = storageTasks;
-  document.querySelectorAll('li').forEach((task) => {
+  document.querySelectorAll('.task-item').forEach((task) => {
     saveTask(task);
   });
 }
