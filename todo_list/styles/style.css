@@ -5,6 +5,7 @@
   color: #f8f9fa;
   cursor: pointer;
   margin: 3px 0;
+  min-width: 150px;
   padding: 0.8rem 1rem;
 }
 .completed {
@@ -19,7 +20,7 @@
 #general-configs {
   position: fixed;
   top: 40vh;
-  left: -173px;
+  left: -150px;
 }
 #general-configs div {
   background-color: #39c18c;
