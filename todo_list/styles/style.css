@@ -1,5 +1,5 @@
 .btn-config {
-  background-color: #260549;
+  background-color: #4f0a99;
   border: none;
   border-radius: 0 10px 10px 0;
   color: #f8f9fa;
@@ -18,7 +18,12 @@
 #general-configs {
   position: fixed;
   top: 40vh;
-  left: 0;
+  left: -173px;
+}
+#general-configs div {
+  background-color: #39c18c;
+  border-radius: 0 10px 10px 0;
+  padding: 1.5rem 1rem 0.5rem 0;
 }
 #lista-tarefas {
   list-style: none;
@@ -39,11 +44,13 @@
 #texto-tarefa {
   border: 1px solid #6c757d;
   border-radius: 10px;
+  display: none;
   font-family: 'Sintony', sans-serif;
-  left: 180px;
+  left: 185px;
   outline: none;
   position: absolute;
   padding: 0.8rem 2rem;
+  top: 1.6rem;
 }
 .nav-bar ul {
   display: flex;
@@ -78,9 +85,6 @@ header .container {
   align-items: center;
   display: flex;
   justify-content: space-between;
-}
-main {
-  border: 1px solid #f00;
 }
 main article {
   display: flex;

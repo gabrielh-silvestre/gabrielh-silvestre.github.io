@@ -1,12 +1,15 @@
-font_dancing = 'Dancing Script', cursive;
-font_sintony = 'Sintony', sans-serif;
-my_personal_color = #260549;
-light_bgc = #F8F9FA;
-dark_bgc = #212529;
-light_gray = #6C757D;
+font_dancing = 'Dancing Script', cursive
+font_sintony = 'Sintony', sans-serif
+p_color_dark = #260549
+p_color_light = #4f0a99
+s_color_dark = #227252
+s_color_light = #39C18C
+light_bgc = #F8F9FA
+dark_bgc = #212529
+light_gray = #6C757D
 
 .btn-config
-  background-color: my_personal_color
+  background-color: p_color_light
   border: none
   border-radius: 0 10px 10px 0
   color: light_bgc
@@ -25,7 +28,12 @@ light_gray = #6C757D;
 #general-configs
   position: fixed
   top: 40vh
-  left: 0
+  left: -173px
+
+#general-configs div
+  background-color: s_color_light
+  border-radius: 0 10px 10px 0
+  padding: 1.5rem 1rem 0.5rem 0
 
 #lista-tarefas
   list-style: none
@@ -46,12 +54,13 @@ light_gray = #6C757D;
 #texto-tarefa
   border: 1px solid light_gray
   border-radius: 10px
-  // display: none
+  display: none
   font-family: font_sintony
-  left: 180px
+  left: 185px
   outline: none
   position: absolute
   padding: 0.8rem 2rem
+  top: 1.6rem
 
 .nav-bar
   ul
@@ -87,7 +96,6 @@ header
     justify-content: space-between
 
 main
-  border: 1px solid red
   article
     display: flex
     justify-content: center
