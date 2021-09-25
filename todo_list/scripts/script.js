@@ -1,5 +1,13 @@
 // functions for working with elements
 
+function addMultiplesEvents(element, eventsName, listener) {
+  const events = eventsName.split(' ');
+
+  events.forEach((event) => {
+    element.addEventListener(event, listener, false);
+  });
+}
+
 function addMultiplesListeners(arr, eventName, listener) {
   arr.forEach((element) => {
     element.addEventListener(eventName, listener, false);
@@ -33,6 +41,7 @@ const staticElements = {
   buttonSave: document.querySelector('#salvar-tarefas'),
   buttonMoveUp: document.querySelector('#mover-cima'),
   buttonMoveDown: document.querySelector('#mover-baixo'),
+  generalConfigs: document.querySelector('#general-configs-container'),
 };
 
 // functions for the project
@@ -205,7 +214,35 @@ function execButton(event) {
   rightFunc();
 }
 
+// Animation
+
+const showMenu = anime({
+  targets: '#general-configs',
+  translateX: 173,
+  duration: 300,
+  autoplay: false,
+  easing: 'linear',
+});
+
+const hideMenu = anime({
+  targets: '#general-configs',
+  translateX: 173,
+  duration: 300,
+  direction: 'reverse',
+  autoplay: false,
+  easing: 'linear',
+});
+
+function triggerControl(event) {
+  event.type === 'mouseenter' ? showMenu.play() : hideMenu.play();
+};
+
+function triggerShowMenu() {
+  addMultiplesEvents(staticElements.generalConfigs, 'mouseenter mouseleave', triggerControl);
+};
+
 window.onload = () => {
+  triggerShowMenu();
   taskListInput();
   addMultiplesListeners(document.querySelectorAll('button'), 'click', execButton);
   renderSaveTasks();
