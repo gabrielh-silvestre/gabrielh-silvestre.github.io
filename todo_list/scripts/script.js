@@ -210,8 +210,17 @@ function execButton(event) {
   rightFunc();
 }
 
-function moveUpAndDow() {
-  document.addEventListener('keyup', (event) => {event.key === 'ArrowUp' ? moveUp() : moveDown();});
+const keyListeners = {
+  ArrowUp: moveUp,
+  ArrowDown: moveDown,
+  Delete: deleteSelectedTask,
+}
+
+function execKeyCommand(event) {
+  const rightCommand = keyListeners[event.key];
+  if (rightCommand) {
+    rightCommand();
+  }
 }
 
 // Animation
@@ -228,7 +237,6 @@ const hideMenu = anime({
   targets: '#general-configs',
   translateX: 173,
   duration: 300,
-  direction: 'reverse',
   autoplay: false,
   easing: 'linear',
 });
@@ -244,8 +252,8 @@ function triggerShowMenu() {
 window.onload = () => {
   triggerShowMenu();
   taskListInput();
+  document.addEventListener('keyup', execKeyCommand);
   addMultiplesListeners(document.querySelectorAll('button'), 'click', execButton);
-  moveUpAndDow();
   renderSaveTasks();
   lintenTaskItem();
 };
