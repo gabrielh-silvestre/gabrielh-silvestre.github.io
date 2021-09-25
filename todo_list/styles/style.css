@@ -3,6 +3,7 @@
   border: none;
   border-radius: 0 10px 10px 0;
   color: #f8f9fa;
+  cursor: pointer;
   margin: 3px 0;
   padding: 0.8rem 1rem;
 }
@@ -33,9 +34,11 @@
   flex-direction: column;
 }
 .selected {
-  background-color: #808080;
+  background-color: #39c18c;
+  border-radius: 10px;
 }
 .task-item {
+  cursor: pointer;
   font-family: 'Dancing Script', cursive;
   font-size: 2rem;
   letter-spacing: 3px;
