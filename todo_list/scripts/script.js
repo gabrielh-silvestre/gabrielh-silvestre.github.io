@@ -230,7 +230,7 @@ function execKeyCommand(event) {
 function showMenu() {
   const show = anime({
     targets: '#general-configs-container',
-    translateX: 150,
+    translateX: 166,
     easing: 'linear',
     duration: 300,
     autoplay: false,
