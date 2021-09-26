@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToDo List</title>
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Sintony&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <section class="header-title">
+        <h1>To-Do List</h1>
+      </section>
+      <section>
+        <nav class="nav-bar">
+          <ul>
+            <li><a href="https://www.linkedin.com/in/gabrielh-silvestre/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li><a href="https://github.com/gabrielh-silvestre" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://gabrielh-silvestre.github.io/">Portfolio</a></li>
+          </ul>
+        </nav>
+      </section>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <article>
+        <section class="section-list">
+          <ol id="lista-tarefas"></ol>
+        </section>
+      </article>
+      <aside id="general-configs">
+        <div id="general-configs-container">
+          <section class="section-config">
+            <input type="text" name="task-list-input" id="texto-tarefa" placeholder="Nova tarefa?">
+            <button id="criar_tarefa" class="btn-config">Criar</button>
+            <button id="apaga_tudo" class="btn-config">Del. Todos</button>
+            <button id="remover_finalizados" class="btn-config">Del. Prontos</button>
+          </section>
+        </div>
+      </aside>
+    </div>
+  </main>
+  <script src="./node_modules/animejs/lib/anime.min.js"></script>
+  <script src="./scripts/script.js"></script>
+</body>
+</html>

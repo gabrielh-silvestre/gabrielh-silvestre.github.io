@@ -1,0 +1,97 @@
+.btn-config {
+  background-color: #39c18c;
+  border: none;
+  border-radius: 0 10px 10px 0;
+  box-shadow: inset 0px 0px 15px -5px #4f0a99;
+  color: #212529;
+  cursor: pointer;
+  margin: 3px 0;
+  min-width: 150px;
+  padding: 0.8rem 1rem;
+}
+.completed {
+  text-decoration-line: line-through;
+  text-decoration-style: solid;
+  text-decoration-color: #000;
+}
+.container {
+  margin: auto;
+  width: calc(80% - 50px);
+}
+#general-configs {
+  position: fixed;
+  top: 40vh;
+  left: -166px;
+}
+#general-configs-container {
+  background-color: #39c18c;
+  border-radius: 0 10px 10px 0;
+  padding: 1.5rem 1rem 0.5rem 0;
+}
+#lista-tarefas {
+  list-style: none;
+}
+.section-config {
+  display: flex;
+  flex-direction: column;
+}
+.selected {
+  background-color: #39c18c;
+  border-radius: 10px;
+}
+.task-item {
+  cursor: pointer;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  padding: 1.2rem 1.6rem;
+}
+#texto-tarefa {
+  border: none;
+  border-radius: 0 10px 10px 0;
+  box-shadow: inset 0px 0px 15px -5px #4f0a99;
+  font-family: 'Sintony', sans-serif;
+  max-height: 43px;
+  outline: none;
+  padding: 0.8rem 0.5rem;
+  width: 166px;
+}
+.nav-bar ul {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+}
+.nav-bar ul a {
+  color: #000;
+  font-family: 'Sintony', sans-serif;
+  padding: 0.2rem 0.8rem;
+  text-decoration: none;
+}
+* {
+  box-sizing: border-box;
+  color: #212529;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #f8f9fa;
+}
+h1 {
+  font-family: 'Sintony', sans-serif;
+  font-size: 2.5rem;
+}
+header {
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+  text-align: center;
+}
+header .container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+main article {
+  display: flex;
+  justify-content: center;
+}

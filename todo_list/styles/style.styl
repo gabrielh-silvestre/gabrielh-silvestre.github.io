@@ -1,0 +1,106 @@
+font_dancing = 'Dancing Script', cursive
+font_sintony = 'Sintony', sans-serif
+p_color_dark = #260549
+p_color_light = #4f0a99
+s_color_dark = #227252
+s_color_light = #39C18C
+light_bgc = #F8F9FA
+dark_bgc = #212529
+light_gray = #6C757D
+
+.btn-config
+  background-color: s_color_light
+  border: none
+  border-radius: 0 10px 10px 0
+  box-shadow: inset 0px 0px 15px -5px #4F0A99
+  color: #212529
+  cursor: pointer
+  margin: 3px 0
+  min-width: 150px
+  padding: 0.8rem 1rem
+
+.completed
+  text-decoration-line: line-through 
+  text-decoration-style: solid 
+  text-decoration-color: rgb(0, 0, 0)
+
+.container
+  margin: auto
+  width: calc(80% - 50px)
+
+#general-configs
+  position: fixed
+  top: 40vh
+  left: -166px
+
+#general-configs-container
+  background-color: s_color_light
+  border-radius: 0 10px 10px 0
+  padding: 1.5rem 1rem 0.5rem 0
+
+#lista-tarefas
+  list-style: none
+
+.section-config
+  display: flex
+  flex-direction: column
+
+.selected
+  background-color: s_color_light
+  border-radius: 10px
+
+.task-item
+  cursor: pointer
+  font-family: font_dancing
+  font-size: 2rem
+  letter-spacing: 3px
+  padding: 1.2rem 1.6rem
+
+#texto-tarefa
+  border: none
+  border-radius: 0 10px 10px 0
+  box-shadow: inset 0px 0px 15px -5px #4F0A99
+  font-family: font_sintony
+  max-height: 43px
+  outline: none
+  padding: 0.8rem 0.5rem
+  width: 166px
+
+.nav-bar
+  ul
+    display flex
+    justify-content: space-around
+    list-style: none
+    a
+      color: black
+      font-family: font_sintony
+      padding: 0.2rem 0.8rem
+      text-decoration: none
+
+*
+  box-sizing: border-box
+  color: dark_bgc
+  font-size: 100%
+  margin: 0
+  padding: 0
+
+body
+  background-color: light_bgc
+
+h1
+  font-family: font_sintony
+  font-size: 2.5rem
+
+header
+  margin-bottom: 2rem 
+  padding: 1rem 0
+  text-align: center
+  .container
+    align-items: center
+    display: flex
+    justify-content: space-between
+
+main
+  article
+    display: flex
+    justify-content: center
