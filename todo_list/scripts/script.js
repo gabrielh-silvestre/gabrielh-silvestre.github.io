@@ -202,13 +202,13 @@ const buttonsListeners = {
   criar_tarefa: taskCreation,
   apaga_tudo: deleteAllTasks,
   remover_finalizados: deleteDoneTasks,
-  salvar_tarefas: saveLocalStorage,
   remover_selecionado: deleteSelectedTask,
 };
 
 function execButton(event) {
   const rightFunc = buttonsListeners[event.target.id];
   rightFunc();
+  saveLocalStorage();
 }
 
 const keyListeners = {
@@ -221,6 +221,7 @@ function execKeyCommand(event) {
   const rightCommand = keyListeners[event.key];
   if (rightCommand) {
     rightCommand();
+    saveLocalStorage();
   }
 }
 
