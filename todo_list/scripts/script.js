@@ -76,7 +76,11 @@ function lintenTaskItem() {
 }
 
 function getTaskContent(event) {
-  user.taskContent = event.target.value;
+  if (event.which === 13) {
+    taskCreation();
+  } else {
+    user.taskContent = event.target.value;
+  }
 }
 
 function taskListInput() {
