@@ -248,7 +248,16 @@ body {
   border: 3px solid var(--secondary_color);
   border-bottom: none;
   border-radius: 25px 25px 0 0;
+  height: 60%;
   padding: 5px 25px;
+}
+
+.short_resume ul {
+  flex-direction: column;
+}
+
+.short_resume li {
+  padding: 15px 0;
 }
 
 #skill_title {
