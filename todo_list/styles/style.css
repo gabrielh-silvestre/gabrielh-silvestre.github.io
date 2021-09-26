@@ -2,7 +2,8 @@
   background-color: #39c18c;
   border: none;
   border-radius: 0 10px 10px 0;
-  color: #f8f9fa;
+  box-shadow: inset 0px 0px 15px -5px #4f0a99;
+  color: #212529;
   cursor: pointer;
   margin: 3px 0;
   min-width: 150px;
@@ -69,6 +70,7 @@
 }
 * {
   box-sizing: border-box;
+  color: #212529;
   font-size: 100%;
   margin: 0;
   padding: 0;
