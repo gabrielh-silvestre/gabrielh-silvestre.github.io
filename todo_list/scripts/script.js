@@ -250,7 +250,7 @@ function hideMenu() {
   hide.play();
 }
 
-function triggerControl(event) {
+function triggerMenuControl(event) {
   if (event.target === staticElements.generalConfigs && !user.configMenu) {
     user.configMenu = true;
     showMenu();
@@ -260,9 +260,42 @@ function triggerControl(event) {
   }
 };
 
+function activeBtnHover(element, initColor) {
+  const activeHover = anime({
+    targets: element,
+    backgroundColor: [initColor, '#4f0a99'],
+    autoplay: false,
+    duration: 500,
+    easing: 'easeInOutSine',
+  });
+
+  activeHover.play();
+}
+
+function restartBtnHover(element, initColor) {
+  const restartHover = anime({
+    targets: element,
+    backgroundColor: [initColor, '#39C18C'],
+    autoplay: false,
+    duration: 500,
+    easing: 'easeInOutSine',
+  });
+
+  restartHover.play();
+}
+
+function triggerBtnColors(event) {
+  if (event.type === 'mouseenter') {
+    activeBtnHover(event.target, event.target.style.backgroundColor);
+  } else if (event.type === 'mouseleave') {
+    restartBtnHover(event.target, event.target.style.backgroundColor);
+  }
+}
+
 window.onload = () => {
   taskListInput();
-  staticElements.generalConfigs.addEventListener('click', triggerControl);
+  staticElements.generalConfigs.addEventListener('click', triggerMenuControl);
+  addMultiplesEventsAndListeners(document.querySelectorAll('.btn-config'), 'mouseenter mouseleave', triggerBtnColors);
   document.addEventListener('keyup', execKeyCommand);
   addMultiplesListeners(document.querySelectorAll('button'), 'click', execButton);
   renderSaveTasks();
