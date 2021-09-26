@@ -78,6 +78,7 @@ function lintenTaskItem() {
 function getTaskContent(event) {
   if (event.which === 13) {
     taskCreation();
+    saveLocalStorage();
   } else {
     user.taskContent = event.target.value;
   }
