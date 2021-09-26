@@ -265,6 +265,7 @@ function activeBtnHover(element, initColor) {
   const activeHover = anime({
     targets: element,
     backgroundColor: [initColor, '#4f0a99'],
+    color: [initColor, '#F8F9FA'],
     autoplay: false,
     duration: 500,
     easing: 'easeInOutSine',
@@ -277,6 +278,7 @@ function restartBtnHover(element, initColor) {
   const restartHover = anime({
     targets: element,
     backgroundColor: [initColor, '#39C18C'],
+    color: [initColor, '#212529'],
     autoplay: false,
     duration: 500,
     easing: 'easeInOutSine',
