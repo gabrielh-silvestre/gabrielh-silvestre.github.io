@@ -209,6 +209,11 @@ const buttonsListeners = {
   apaga_tudo: deleteAllTasks,
   remover_finalizados: deleteDoneTasks,
   remover_selecionado: deleteSelectedTask,
+  // create_subtasks: createSubTasks,
+  remove_done_task: deleteDoneTasks,
+  // unselect_task: unSelectTask,
+  // change_bgc_task: changeBgcTask,
+  save_all_task: saveLocalStorage,
 };
 
 function execButton(event) {
