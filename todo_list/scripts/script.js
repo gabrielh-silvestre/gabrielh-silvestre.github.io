@@ -41,6 +41,7 @@ const staticElements = {
   buttonDeleteSelected: document.querySelector('#remover-selecionado'),
   buttonSave: document.querySelector('#salvar-tarefas'),
   generalConfigs: document.querySelector('#general-configs-container'),
+  secondaryMenu: document.querySelector('#mouse-2-menu'),
 };
 
 // functions for the project
@@ -222,12 +223,32 @@ const keyListeners = {
   Delete: deleteSelectedTask,
 }
 
-function execKeyCommand(event) {
+function keyCommands(event) {
   const rightCommand = keyListeners[event.key];
   if (rightCommand) {
     rightCommand();
     saveLocalStorage();
   }
+}
+
+function showSecondaryMenu() {
+  staticElements.secondaryMenu.style.display === 'block'
+  ? staticElements.secondaryMenu.style.display = 'none'
+  : staticElements.secondaryMenu.style.display = 'block';
+}
+
+function mouseCommands(event) {
+  event.preventDefault();
+  staticElements.secondaryMenu.style.left = `${event.clientX}px`;
+  staticElements.secondaryMenu.style.top = `${event.clientY}px`;
+  showSecondaryMenu();
+}
+
+function execUniversalCommands(event) {
+  const whatCommand = event.type === 'keyup'
+  ? keyCommands
+  : mouseCommands;
+  whatCommand(event);
 }
 
 // Animation
@@ -304,7 +325,8 @@ window.onload = () => {
   taskListInput();
   staticElements.generalConfigs.addEventListener('click', triggerMenuControl);
   addMultiplesEventsAndListeners(document.querySelectorAll('.btn-config'), 'mouseenter mouseleave', triggerBtnColors);
-  document.addEventListener('keyup', execKeyCommand);
+  addMultiplesEvents(document, 'keyup contextmenu', execUniversalCommands);
+  // document.addEventListener('keyup', execKeyCommand);
   addMultiplesListeners(document.querySelectorAll('button'), 'click', execButton);
   renderSaveTasks();
   lintenTaskItem();
