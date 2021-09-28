@@ -231,17 +231,25 @@ function keyCommands(event) {
   }
 }
 
-function showSecondaryMenu() {
+function triggerSecondaryMenu() {
   staticElements.secondaryMenu.style.display === 'block'
   ? staticElements.secondaryMenu.style.display = 'none'
   : staticElements.secondaryMenu.style.display = 'block';
 }
 
+function hideSecondaryMenu() {
+  staticElements.secondaryMenu.style.display = 'none';
+}
+
 function mouseCommands(event) {
   event.preventDefault();
-  staticElements.secondaryMenu.style.left = `${event.clientX}px`;
-  staticElements.secondaryMenu.style.top = `${event.clientY}px`;
-  showSecondaryMenu();
+  if (event.type === 'click') {
+    hideSecondaryMenu();
+  } else {
+    staticElements.secondaryMenu.style.left = `${event.clientX}px`;
+    staticElements.secondaryMenu.style.top = `${event.clientY - 5}px`;
+    triggerSecondaryMenu();
+  }
 }
 
 function execUniversalCommands(event) {
@@ -325,7 +333,7 @@ window.onload = () => {
   taskListInput();
   staticElements.generalConfigs.addEventListener('click', triggerMenuControl);
   addMultiplesEventsAndListeners(document.querySelectorAll('.btn-config'), 'mouseenter mouseleave', triggerBtnColors);
-  addMultiplesEvents(document, 'keyup contextmenu', execUniversalCommands);
+  addMultiplesEvents(document, 'keyup click contextmenu', execUniversalCommands);
   // document.addEventListener('keyup', execKeyCommand);
   addMultiplesListeners(document.querySelectorAll('button'), 'click', execButton);
   renderSaveTasks();
