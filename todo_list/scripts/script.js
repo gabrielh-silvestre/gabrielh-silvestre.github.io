@@ -231,14 +231,20 @@ function keyCommands(event) {
   }
 }
 
-function triggerSecondaryMenu() {
-  staticElements.secondaryMenu.style.display === 'block'
-  ? staticElements.secondaryMenu.style.display = 'none'
-  : staticElements.secondaryMenu.style.display = 'block';
+function hideSecondaryMenu() {
+  collapseSecondayMenu();
+  setTimeout(() => staticElements.secondaryMenu.style.display = 'none', 290);  
 }
 
-function hideSecondaryMenu() {
-  staticElements.secondaryMenu.style.display = 'none';
+function showSecondayMenu() {
+  staticElements.secondaryMenu.style.display = 'block';
+  expandSecondayMenu();
+}
+
+function triggerSecondaryMenu() {
+  staticElements.secondaryMenu.style.display === 'block'
+  ? hideSecondaryMenu()
+  : showSecondayMenu();
 }
 
 function mouseCommands(event) {
@@ -329,6 +335,30 @@ function triggerBtnColors(event) {
   }
 }
 
+function expandSecondayMenu() {
+  const secondaryMenu = anime({
+    targets: '#mouse-2-menu .secondary-menu-container',
+    height: ['5px', '270px'],
+    autoplay: false,
+    duration: 300,
+    easing: 'easeInOutSine',
+  });
+
+  secondaryMenu.play();
+}
+
+function collapseSecondayMenu() {
+  const secondaryMenu = anime({
+    targets: '#mouse-2-menu .secondary-menu-container',
+    height: ['270px', '5px'],
+    autoplay: false,
+    duration: 300,
+    easing: 'easeInOutSine',
+  });
+
+  secondaryMenu.play();
+}
+ 
 window.onload = () => {
   taskListInput();
   staticElements.generalConfigs.addEventListener('click', triggerMenuControl);
