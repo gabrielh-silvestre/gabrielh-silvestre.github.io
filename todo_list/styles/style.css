@@ -32,11 +32,14 @@
   list-style: none;
 }
 .secondary-menu-btn {
+  background-color: #f8f9fa;
   border: none;
   border-radius: 5px;
-  background-color: #f8f9fa;
+  cursor: pointer;
+  overflow: hidden;
   padding: 8px 2px;
   margin: 2px 0;
+  white-space: nowrap;
 }
 .secondary-menu-container {
   background-color: #f8f9fa;
@@ -46,6 +49,7 @@
   overflow: hidden;
   padding: 20px 10px;
   text-align: center;
+  width: 5px;
 }
 .secondary-menu-container div {
   display: flex;
