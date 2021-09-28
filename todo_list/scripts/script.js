@@ -241,12 +241,6 @@ function showSecondayMenu() {
   expandSecondayMenu();
 }
 
-function triggerSecondaryMenu() {
-  staticElements.secondaryMenu.style.display === 'block'
-  ? hideSecondaryMenu()
-  : showSecondayMenu();
-}
-
 function mouseCommands(event) {
   event.preventDefault();
   if (event.type === 'click') {
@@ -254,7 +248,7 @@ function mouseCommands(event) {
   } else {
     staticElements.secondaryMenu.style.left = `${event.clientX}px`;
     staticElements.secondaryMenu.style.top = `${event.clientY - 5}px`;
-    triggerSecondaryMenu();
+    showSecondayMenu();
   }
 }
 
