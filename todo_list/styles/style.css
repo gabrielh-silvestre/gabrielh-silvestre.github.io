@@ -76,8 +76,8 @@
   width: 166px;
 }
 #mouse-2-menu {
+  display: none;
   position: absolute;
-  left: 300px;
 }
 .nav-bar ul {
   display: flex;
