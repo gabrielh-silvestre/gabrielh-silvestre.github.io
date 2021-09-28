@@ -238,7 +238,7 @@ function keyCommands(event) {
 
 function hideSecondaryMenu() {
   collapseSecondayMenu();
-  setTimeout(() => staticElements.secondaryMenu.style.display = 'none', 290);  
+  setTimeout(() => staticElements.secondaryMenu.style.display = 'none', 290);
 }
 
 function showSecondayMenu() {
@@ -248,13 +248,9 @@ function showSecondayMenu() {
 
 function mouseCommands(event) {
   event.preventDefault();
-  if (event.type === 'click') {
-    hideSecondaryMenu();
-  } else {
-    staticElements.secondaryMenu.style.left = `${event.clientX}px`;
-    staticElements.secondaryMenu.style.top = `${event.clientY - 5}px`;
-    showSecondayMenu();
-  }
+  staticElements.secondaryMenu.style.left = `${event.clientX}px`;
+  staticElements.secondaryMenu.style.top = `${event.clientY - 5}px`;
+  showSecondayMenu();
 }
 
 function execUniversalCommands(event) {
@@ -338,6 +334,7 @@ function expandSecondayMenu() {
   const secondaryMenu = anime({
     targets: '#mouse-2-menu .secondary-menu-container',
     height: ['5px', '270px'],
+    width: ['5px', '195px'],
     autoplay: false,
     duration: 300,
     easing: 'easeInOutSine',
@@ -350,6 +347,7 @@ function collapseSecondayMenu() {
   const secondaryMenu = anime({
     targets: '#mouse-2-menu .secondary-menu-container',
     height: ['270px', '5px'],
+    width: ['195px', '5px'],
     autoplay: false,
     duration: 300,
     easing: 'easeInOutSine',
@@ -361,9 +359,9 @@ function collapseSecondayMenu() {
 window.onload = () => {
   taskListInput();
   staticElements.generalConfigs.addEventListener('click', triggerMenuControl);
+  staticElements.secondaryMenu.addEventListener('mouseleave', hideSecondaryMenu);
   addMultiplesEventsAndListeners(document.querySelectorAll('.btn-config'), 'mouseenter mouseleave', triggerBtnColors);
-  addMultiplesEvents(document, 'keyup click contextmenu', execUniversalCommands);
-  // document.addEventListener('keyup', execKeyCommand);
+  addMultiplesEvents(document, 'keyup contextmenu', execUniversalCommands);
   addMultiplesListeners(document.querySelectorAll('button'), 'click', execButton);
   renderSaveTasks();
   lintenTaskItem();
