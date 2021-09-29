@@ -66,6 +66,7 @@ function taskEvents(event) {
     selectTask(event);
   } else {
     completeTask(event);
+    saveLocalStorage();
   }
 }
 
