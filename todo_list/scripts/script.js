@@ -79,7 +79,7 @@ function lintenTaskItem() {
 function getTaskContent(event) {
   if (event.which === 13) {
     taskCreation();
-    // saveLocalStorage();
+    saveLocalStorage();
   } else {
     user.taskContent = event.target.value;
   }
@@ -213,42 +213,28 @@ function moveDown() {
   }
 }
 
-// function stringifyTasks(arr) {
-//   const tempArr = [];
-//   arr.forEach((e) => {
-//     tempArr.push(JSON.stringify(e.outerHTML));
-//   });
-//   return tempArr;
-// }
+function getAllTasks() {
+  const taskItem = JSON.stringify(staticElements.taskList.innerHTML);
 
-// function getAllTasks() {
-//   const taskContainer = stringifyTasks(document.querySelectorAll('.task-item'));
-//   const taskContent = stringifyTasks(document.querySelectorAll('.task-title'));
-//   return [taskContainer, taskContent];
-// }
+  return taskItem;
+}
 
-// function saveLocalStorage() {
-//   localStorage.setItem('task-container', getAllTasks()[0]);
-//   localStorage.setItem('task-content', getAllTasks()[1]);
-// }
+function saveLocalStorage() {
+  localStorage.setItem('task', getAllTasks());
+}
 
-// function renderSaveTasks() {
-//   const storageTasks = localStorage.getItem('task-container');
-//   const storageTasksTitle = localStorage.getItem('task-content')
+function saveRenderedTasks() {
+  const taskContainer = document.querySelectorAll('.task-item');
+  const taskContent = document.querySelectorAll('.task-title');
 
-//   console.log(JSON.parse(storageTasksTitle));
+  taskContainer.forEach((e, i) => saveTask(constructorTask(e, taskContent[i])));
+}
 
-//   if (storageTasks !== null) {
-//     staticElements.taskList.innerHTML = storageTasks;
-  
-//     console.log(storageTasksTitle);
-//   }
-
-
-//   document.querySelectorAll('.task-item').forEach((task) => {
-//     saveTask(task);
-//   });
-// }
+function renderSaveTasks() {
+  const tasks = JSON.parse(localStorage.getItem('task'));
+  staticElements.taskList.innerHTML = tasks;
+  saveRenderedTasks();
+}
 
 const buttonsListeners = {
   criar_tarefa: taskCreation,
@@ -265,7 +251,7 @@ const buttonsListeners = {
 function execButton(event) {
   const rightFunc = buttonsListeners[event.target.id];
   rightFunc();
-  // saveLocalStorage();
+  saveLocalStorage();
 }
 
 const keyListeners = {
@@ -278,7 +264,7 @@ function keyCommands(event) {
   const rightCommand = keyListeners[event.key];
   if (rightCommand) {
     rightCommand();
-    // saveLocalStorage();
+    saveLocalStorage();
   }
 }
 
@@ -409,6 +395,6 @@ window.onload = () => {
   addMultiplesEventsAndListeners(document.querySelectorAll('.btn-config'), 'mouseenter mouseleave', triggerBtnColors);
   addMultiplesEvents(document, 'keyup contextmenu', execUniversalCommands);
   addMultiplesListeners(document.querySelectorAll('button'), 'click', execButton);
-  // renderSaveTasks();
+  renderSaveTasks();
   lintenTaskItem();
 };
