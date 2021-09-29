@@ -48,7 +48,7 @@ const staticElements = {
 
 function resetTaskSelection() {
   user.allTasks.forEach((task) => {
-    task.classList.remove('selected');
+    task.content.classList.remove('selected');
   });
 }
 
@@ -79,7 +79,7 @@ function lintenTaskItem() {
 function getTaskContent(event) {
   if (event.which === 13) {
     taskCreation();
-    saveLocalStorage();
+    // saveLocalStorage();
   } else {
     user.taskContent = event.target.value;
   }
@@ -89,20 +89,45 @@ function taskListInput() {
   staticElements.inputTextTask.addEventListener('keyup', getTaskContent);
 }
 
-function saveTask(taskItem) {
-  user.allTasks.push(taskItem);
+function constructorTask(taskContainer, taskContent, ...taskSubContent) {
+  if (taskSubContent.length !== 0) {
+    return {container: taskContainer, content: taskContent, subContent: taskSubContent};
+  }
+  return {container: taskContainer, content: taskContent}
+}
+
+function saveTask(taskObj) {
+  user.allTasks.push(taskObj);
+}
+
+function createTaskContent() {
+  const newTaskContent = document.createElement('h3');
+  newTaskContent.classList.add('task-title');
+  newTaskContent.innerText = user.taskContent;
+  return newTaskContent;
+}
+
+// function createTaskSubContent() {
+
+// }
+
+function createTaskContainer() {
+  const newTaskConatiner = document.createElement('li');
+  newTaskConatiner.classList.add('task-item');
+  return newTaskConatiner;
 }
 
 function createTask() {
-  const newTask = document.createElement('li');
-  newTask.classList.add('task-item');
-  newTask.innerText = user.taskContent;
-  saveTask(newTask);
+  const taskContainer = createTaskContainer();
+  const taskContent = createTaskContent();
+  // const taskSubContent = createTaskSubContent();
+  taskContainer.appendChild(taskContent);
+  saveTask(constructorTask(taskContainer, taskContent));
 }
 
 function resetTaskList() {
   user.allTasks.forEach((task) => {
-    task.remove();
+    task.container.remove();
   });
 }
 
@@ -112,7 +137,7 @@ function resetAllTasks() {
 
 function renderTask() {
   user.allTasks.forEach((task) => {
-    staticElements.taskList.appendChild(task);
+    staticElements.taskList.appendChild(task.container);
   });
   lintenTaskItem();
 }
@@ -139,7 +164,7 @@ function saveTaskClassPosition(className) {
   let taskClassPosition = '';
 
   user.allTasks.forEach((task) => {
-    const taskClass = task.classList.toString();
+    const taskClass = task.content.classList.toString();
     if (taskClass.includes(className)) {
       taskClassPosition = user.allTasks.indexOf(task);
     }
@@ -151,7 +176,7 @@ function saveTaskClassPosition(className) {
 function deleteClassBased(className) {
   const removeIndex = saveTaskClassPosition(className);
   if (user.allTasks[removeIndex] !== undefined) {
-    user.allTasks[removeIndex].remove();
+    user.allTasks[removeIndex].container.remove();
     user.allTasks.splice(removeIndex, 1);
   }
 }
@@ -188,21 +213,42 @@ function moveDown() {
   }
 }
 
-function getAllTasks() {
-  return JSON.stringify(staticElements.taskList.innerHTML);
-}
+// function stringifyTasks(arr) {
+//   const tempArr = [];
+//   arr.forEach((e) => {
+//     tempArr.push(JSON.stringify(e.outerHTML));
+//   });
+//   return tempArr;
+// }
 
-function saveLocalStorage() {
-  localStorage.setItem('task', getAllTasks());
-}
+// function getAllTasks() {
+//   const taskContainer = stringifyTasks(document.querySelectorAll('.task-item'));
+//   const taskContent = stringifyTasks(document.querySelectorAll('.task-title'));
+//   return [taskContainer, taskContent];
+// }
 
-function renderSaveTasks() {
-  const storageTasks = JSON.parse(localStorage.getItem('task'));
-  staticElements.taskList.innerHTML = storageTasks;
-  document.querySelectorAll('.task-item').forEach((task) => {
-    saveTask(task);
-  });
-}
+// function saveLocalStorage() {
+//   localStorage.setItem('task-container', getAllTasks()[0]);
+//   localStorage.setItem('task-content', getAllTasks()[1]);
+// }
+
+// function renderSaveTasks() {
+//   const storageTasks = localStorage.getItem('task-container');
+//   const storageTasksTitle = localStorage.getItem('task-content')
+
+//   console.log(JSON.parse(storageTasksTitle));
+
+//   if (storageTasks !== null) {
+//     staticElements.taskList.innerHTML = storageTasks;
+  
+//     console.log(storageTasksTitle);
+//   }
+
+
+//   document.querySelectorAll('.task-item').forEach((task) => {
+//     saveTask(task);
+//   });
+// }
 
 const buttonsListeners = {
   criar_tarefa: taskCreation,
@@ -213,13 +259,13 @@ const buttonsListeners = {
   remove_done_task: deleteDoneTasks,
   // unselect_task: unSelectTask,
   // change_bgc_task: changeBgcTask,
-  save_all_task: saveLocalStorage,
+  // save_all_task: saveLocalStorage,
 };
 
 function execButton(event) {
   const rightFunc = buttonsListeners[event.target.id];
   rightFunc();
-  saveLocalStorage();
+  // saveLocalStorage();
 }
 
 const keyListeners = {
@@ -232,7 +278,7 @@ function keyCommands(event) {
   const rightCommand = keyListeners[event.key];
   if (rightCommand) {
     rightCommand();
-    saveLocalStorage();
+    // saveLocalStorage();
   }
 }
 
@@ -363,6 +409,6 @@ window.onload = () => {
   addMultiplesEventsAndListeners(document.querySelectorAll('.btn-config'), 'mouseenter mouseleave', triggerBtnColors);
   addMultiplesEvents(document, 'keyup contextmenu', execUniversalCommands);
   addMultiplesListeners(document.querySelectorAll('button'), 'click', execButton);
-  renderSaveTasks();
+  // renderSaveTasks();
   lintenTaskItem();
 };
