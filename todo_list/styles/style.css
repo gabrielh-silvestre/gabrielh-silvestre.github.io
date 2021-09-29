@@ -64,10 +64,11 @@
   background-color: #39c18c;
   border-radius: 10px;
 }
-.task-item {
+.task-title {
   cursor: pointer;
   font-family: 'Dancing Script', cursive;
   font-size: 2rem;
+  font-weight: normal;
   letter-spacing: 3px;
   padding: 1.2rem 1.6rem;
 }
