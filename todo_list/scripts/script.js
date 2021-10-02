@@ -30,6 +30,7 @@ const user = {
   taskContent: '',
   allTasks: [],
   configMenu: false,
+  subInput: false,
 };
 
 const staticElements = {
@@ -42,6 +43,7 @@ const staticElements = {
   buttonSave: document.querySelector('#salvar-tarefas'),
   generalConfigs: document.querySelector('#general-configs-container'),
   secondaryMenu: document.querySelector('#mouse-2-menu'),
+  subTaskInput: document.querySelector('#subtask_input'),
 };
 
 // functions for the project
@@ -111,6 +113,28 @@ function createTaskContent() {
 // function createTaskSubContent() {
 
 // }
+
+function showSubInput() {
+  console.log('mostra');
+  document.querySelector('#subtask_input').style.display = 'flex';
+  expandSubInput();
+}
+
+function hideSubInput() {
+  console.log('esconde');
+  collapseSubInput();
+  setTimeout(() =>  staticElements.subTaskInput.style.display = 'none', 290);
+}
+
+function triggerTemp() {
+  if (!user.subInput) {
+    showSubInput();
+    user.subInput = true;
+  } else {
+    hideSubInput();
+    user.subInput = false;
+  }
+}
 
 function createTaskContainer() {
   const newTaskConatiner = document.createElement('li');
@@ -242,17 +266,26 @@ const buttonsListeners = {
   apaga_tudo: deleteAllTasks,
   remover_finalizados: deleteDoneTasks,
   remover_selecionado: deleteSelectedTask,
-  // create_subtasks: createSubTasks,
   remove_done_task: deleteDoneTasks,
-  // unselect_task: unSelectTask,
-  // change_bgc_task: changeBgcTask,
-  save_all_task: saveLocalStorage,
 };
 
 function execButton(event) {
   const rightFunc = buttonsListeners[event.target.id];
   rightFunc();
   saveLocalStorage();
+}
+
+const secondaryButtonsListeners = {
+  create_subtasks: triggerTemp,
+  // unselect_task: unSelectTask,
+  // change_bgc_task: changeBgcTask,
+  // save_all_task: saveLocalStorage,  
+}
+
+function execSecondaryButtons(event) {
+  const rightFunc = secondaryButtonsListeners[event.target.id];
+  rightFunc();
+  // saveLocalStorage();
 }
 
 const keyListeners = {
@@ -388,6 +421,30 @@ function collapseSecondayMenu() {
 
   secondaryMenu.play();
 }
+
+function expandSubInput() {
+  const secondaryMenu = anime({
+    targets: '#subtask_input',
+    width: ['5px', '260px'],
+    autoplay: false,
+    duration: 300,
+    easing: 'easeInOutSine',
+  });
+
+  secondaryMenu.play();
+}
+
+function collapseSubInput() {
+  const secondaryMenu = anime({
+    targets: '#subtask_input',
+    width: ['260px', '5px'],
+    autoplay: false,
+    duration: 300,
+    easing: 'easeInOutSine',
+  });
+
+  secondaryMenu.play();
+}
  
 window.onload = () => {
   taskListInput();
@@ -395,7 +452,8 @@ window.onload = () => {
   staticElements.secondaryMenu.addEventListener('mouseleave', hideSecondaryMenu);
   addMultiplesEventsAndListeners(document.querySelectorAll('.btn-config'), 'mouseenter mouseleave', triggerBtnColors);
   addMultiplesEvents(document, 'keyup contextmenu', execUniversalCommands);
-  addMultiplesListeners(document.querySelectorAll('button'), 'click', execButton);
+  addMultiplesListeners(document.querySelectorAll('.btn-config'), 'click', execButton);
+  addMultiplesListeners(document.querySelectorAll('.secondary-menu-btn'), 'click', execSecondaryButtons);
   renderSaveTasks();
   lintenTaskItem();
 };
