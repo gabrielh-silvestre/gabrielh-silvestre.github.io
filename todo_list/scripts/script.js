@@ -30,6 +30,7 @@ const user = {
   taskContent: '',
   allTasks: [],
   configMenu: false,
+  subInput: false,
 };
 
 const staticElements = {
@@ -41,13 +42,15 @@ const staticElements = {
   buttonDeleteSelected: document.querySelector('#remover-selecionado'),
   buttonSave: document.querySelector('#salvar-tarefas'),
   generalConfigs: document.querySelector('#general-configs-container'),
+  secondaryMenu: document.querySelector('#mouse-2-menu'),
+  subTaskInput: document.querySelector('#subtask_input'),
 };
 
 // functions for the project
 
 function resetTaskSelection() {
   user.allTasks.forEach((task) => {
-    task.classList.remove('selected');
+    task.content.classList.remove('selected');
   });
 }
 
@@ -65,6 +68,7 @@ function taskEvents(event) {
     selectTask(event);
   } else {
     completeTask(event);
+    saveLocalStorage();
   }
 }
 
@@ -88,20 +92,61 @@ function taskListInput() {
   staticElements.inputTextTask.addEventListener('keyup', getTaskContent);
 }
 
-function saveTask(taskItem) {
-  user.allTasks.push(taskItem);
+function constructorTask(taskContainer, taskContent, ...taskSubContent) {
+  if (taskSubContent.length !== 0) {
+    return {container: taskContainer, content: taskContent, subContent: taskSubContent};
+  }
+  return {container: taskContainer, content: taskContent}
+}
+
+function saveTask(taskObj) {
+  user.allTasks.push(taskObj);
+}
+
+function createTaskContent() {
+  const newTaskContent = document.createElement('h3');
+  newTaskContent.classList.add('task-title');
+  newTaskContent.innerText = user.taskContent;
+  return newTaskContent;
+}
+
+// function createTaskSubContent() {
+
+// }
+
+function showSubInput() {
+  document.querySelector('#subtask_input').style.display = 'flex';
+  expandSubInput();
+  user.subInput = true;
+}
+
+function hideSubInput() {
+  collapseSubInput();
+  setTimeout(() =>  staticElements.subTaskInput.style.display = 'none', 290);
+  user.subInput = false;
+}
+
+function triggerTemp() {
+  !user.subInput ? showSubInput() : hideSubInput();
+}
+
+function createTaskContainer() {
+  const newTaskConatiner = document.createElement('li');
+  newTaskConatiner.classList.add('task-item');
+  return newTaskConatiner;
 }
 
 function createTask() {
-  const newTask = document.createElement('li');
-  newTask.classList.add('task-item');
-  newTask.innerText = user.taskContent;
-  saveTask(newTask);
+  const taskContainer = createTaskContainer();
+  const taskContent = createTaskContent();
+  // const taskSubContent = createTaskSubContent();
+  taskContainer.appendChild(taskContent);
+  saveTask(constructorTask(taskContainer, taskContent));
 }
 
 function resetTaskList() {
   user.allTasks.forEach((task) => {
-    task.remove();
+    task.container.remove();
   });
 }
 
@@ -111,7 +156,7 @@ function resetAllTasks() {
 
 function renderTask() {
   user.allTasks.forEach((task) => {
-    staticElements.taskList.appendChild(task);
+    staticElements.taskList.appendChild(task.container);
   });
   lintenTaskItem();
 }
@@ -138,7 +183,7 @@ function saveTaskClassPosition(className) {
   let taskClassPosition = '';
 
   user.allTasks.forEach((task) => {
-    const taskClass = task.classList.toString();
+    const taskClass = task.content.classList.toString();
     if (taskClass.includes(className)) {
       taskClassPosition = user.allTasks.indexOf(task);
     }
@@ -150,7 +195,7 @@ function saveTaskClassPosition(className) {
 function deleteClassBased(className) {
   const removeIndex = saveTaskClassPosition(className);
   if (user.allTasks[removeIndex] !== undefined) {
-    user.allTasks[removeIndex].remove();
+    user.allTasks[removeIndex].container.remove();
     user.allTasks.splice(removeIndex, 1);
   }
 }
@@ -188,19 +233,26 @@ function moveDown() {
 }
 
 function getAllTasks() {
-  return JSON.stringify(staticElements.taskList.innerHTML);
+  const taskItem = JSON.stringify(staticElements.taskList.innerHTML);
+
+  return taskItem;
 }
 
 function saveLocalStorage() {
   localStorage.setItem('task', getAllTasks());
 }
 
+function saveRenderedTasks() {
+  const taskContainer = document.querySelectorAll('.task-item');
+  const taskContent = document.querySelectorAll('.task-title');
+
+  taskContainer.forEach((e, i) => saveTask(constructorTask(e, taskContent[i])));
+}
+
 function renderSaveTasks() {
-  const storageTasks = JSON.parse(localStorage.getItem('task'));
-  staticElements.taskList.innerHTML = storageTasks;
-  document.querySelectorAll('.task-item').forEach((task) => {
-    saveTask(task);
-  });
+  const tasks = JSON.parse(localStorage.getItem('task'));
+  staticElements.taskList.innerHTML = tasks;
+  saveRenderedTasks();
 }
 
 const buttonsListeners = {
@@ -208,6 +260,7 @@ const buttonsListeners = {
   apaga_tudo: deleteAllTasks,
   remover_finalizados: deleteDoneTasks,
   remover_selecionado: deleteSelectedTask,
+  remove_done_task: deleteDoneTasks,
 };
 
 function execButton(event) {
@@ -216,18 +269,56 @@ function execButton(event) {
   saveLocalStorage();
 }
 
+const secondaryButtonsListeners = {
+  create_subtasks: triggerTemp,
+  // unselect_task: unSelectTask,
+  // change_bgc_task: changeBgcTask,
+  // save_all_task: saveLocalStorage,  
+}
+
+function execSecondaryButtons(event) {
+  const rightFunc = secondaryButtonsListeners[event.target.id];
+  rightFunc();
+  // saveLocalStorage();
+}
+
 const keyListeners = {
   ArrowUp: moveUp,
   ArrowDown: moveDown,
   Delete: deleteSelectedTask,
 }
 
-function execKeyCommand(event) {
+function keyCommands(event) {
   const rightCommand = keyListeners[event.key];
   if (rightCommand) {
     rightCommand();
     saveLocalStorage();
   }
+}
+
+function hideSecondaryMenu() {
+  collapseSecondayMenu();
+  hideSubInput();
+  setTimeout(() => staticElements.secondaryMenu.style.display = 'none', 290);
+}
+
+function showSecondayMenu() {
+  staticElements.secondaryMenu.style.display = 'block';
+  expandSecondayMenu();
+}
+
+function mouseCommands(event) {
+  event.preventDefault();
+  staticElements.secondaryMenu.style.left = `${event.clientX}px`;
+  staticElements.secondaryMenu.style.top = `${event.clientY - 5}px`;
+  showSecondayMenu();
+}
+
+function execUniversalCommands(event) {
+  const whatCommand = event.type === 'keyup'
+  ? keyCommands
+  : mouseCommands;
+  whatCommand(event);
 }
 
 // Animation
@@ -241,6 +332,7 @@ function showMenu() {
     autoplay: false,
   });
 
+  user.configMenu = true;
   show.play();
 }
 
@@ -253,15 +345,14 @@ function hideMenu() {
     autoplay: false,
   });
 
+  user.configMenu = false;
   hide.play();
 }
 
 function triggerMenuControl(event) {
   if (event.target === staticElements.generalConfigs && !user.configMenu) {
-    user.configMenu = true;
     showMenu();
   } else if (event.target === staticElements.generalConfigs && user.configMenu) {
-    user.configMenu = false;
     hideMenu();
   }
 };
@@ -300,12 +391,64 @@ function triggerBtnColors(event) {
   }
 }
 
+function expandSecondayMenu() {
+  const secondaryMenu = anime({
+    targets: '#mouse-2-menu .secondary-menu-container',
+    height: ['5px', '270px'],
+    width: ['5px', '195px'],
+    autoplay: false,
+    duration: 300,
+    easing: 'easeInOutSine',
+  });
+
+  secondaryMenu.play();
+}
+
+function collapseSecondayMenu() {
+  const secondaryMenu = anime({
+    targets: '#mouse-2-menu .secondary-menu-container',
+    height: ['270px', '5px'],
+    width: ['195px', '5px'],
+    autoplay: false,
+    duration: 300,
+    easing: 'easeInOutSine',
+  });
+
+  secondaryMenu.play();
+}
+
+function expandSubInput() {
+  const secondaryMenu = anime({
+    targets: '#subtask_input',
+    width: ['5px', '260px'],
+    autoplay: false,
+    duration: 300,
+    easing: 'easeInOutSine',
+  });
+
+  secondaryMenu.play();
+}
+
+function collapseSubInput() {
+  const secondaryMenu = anime({
+    targets: '#subtask_input',
+    width: ['260px', '5px'],
+    autoplay: false,
+    duration: 300,
+    easing: 'easeInOutSine',
+  });
+
+  secondaryMenu.play();
+}
+ 
 window.onload = () => {
   taskListInput();
   staticElements.generalConfigs.addEventListener('click', triggerMenuControl);
+  staticElements.secondaryMenu.addEventListener('mouseleave', hideSecondaryMenu);
   addMultiplesEventsAndListeners(document.querySelectorAll('.btn-config'), 'mouseenter mouseleave', triggerBtnColors);
-  document.addEventListener('keyup', execKeyCommand);
-  addMultiplesListeners(document.querySelectorAll('button'), 'click', execButton);
+  addMultiplesEvents(document, 'keyup contextmenu', execUniversalCommands);
+  addMultiplesListeners(document.querySelectorAll('.btn-config'), 'click', execButton);
+  addMultiplesListeners(document.querySelectorAll('.secondary-menu-btn'), 'click', execSecondaryButtons);
   renderSaveTasks();
   lintenTaskItem();
 };

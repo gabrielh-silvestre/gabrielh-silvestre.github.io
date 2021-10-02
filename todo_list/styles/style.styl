@@ -41,6 +41,30 @@ light_gray = #6C757D
 #lista-tarefas
   list-style: none
 
+.secondary-menu-btn
+  background-color: light_bgc
+  border: none
+  border-radius: 5px
+  cursor: pointer
+  overflow: hidden
+  padding: 8px 2px
+  margin: 2px 0
+  white-space: nowrap
+
+.secondary-menu-container
+  background-color: light_bgc
+  border-radius: 10px
+  box-shadow: 0px 0px 8px 0px light_gray
+  height: 5px
+  overflow: hidden
+  padding: 20px 10px
+  text-align: center
+  width: 5px
+  div
+    display: flex
+    flex-direction: column
+    margin: 10px 0
+
 .section-config
   display: flex
   flex-direction: column
@@ -49,10 +73,11 @@ light_gray = #6C757D
   background-color: s_color_light
   border-radius: 10px
 
-.task-item
+.task-title
   cursor: pointer
   font-family: font_dancing
   font-size: 2rem
+  font-weight: normal
   letter-spacing: 3px
   padding: 1.2rem 1.6rem
 
@@ -65,6 +90,19 @@ light_gray = #6C757D
   outline: none
   padding: 0.8rem 0.5rem
   width: 166px
+
+#mouse-2-menu
+  display: none
+  position: absolute
+
+#subtask_input
+  @extend #texto-tarefa
+  border-radius: 10px
+  box-shadow: 0px 0px 8px 0px light_gray
+  display: none
+  left: 175px
+  position: absolute
+  top: 26px
 
 .nav-bar
   ul

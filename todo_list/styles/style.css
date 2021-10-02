@@ -31,6 +31,31 @@
 #lista-tarefas {
   list-style: none;
 }
+.secondary-menu-btn {
+  background-color: #f8f9fa;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 8px 2px;
+  margin: 2px 0;
+  white-space: nowrap;
+}
+.secondary-menu-container {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px 0px #6c757d;
+  height: 5px;
+  overflow: hidden;
+  padding: 20px 10px;
+  text-align: center;
+  width: 5px;
+}
+.secondary-menu-container div {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
 .section-config {
   display: flex;
   flex-direction: column;
@@ -39,14 +64,16 @@
   background-color: #39c18c;
   border-radius: 10px;
 }
-.task-item {
+.task-title {
   cursor: pointer;
   font-family: 'Dancing Script', cursive;
   font-size: 2rem;
+  font-weight: normal;
   letter-spacing: 3px;
   padding: 1.2rem 1.6rem;
 }
-#texto-tarefa {
+#texto-tarefa,
+#subtask_input {
   border: none;
   border-radius: 0 10px 10px 0;
   box-shadow: inset 0px 0px 15px -5px #4f0a99;
@@ -55,6 +82,18 @@
   outline: none;
   padding: 0.8rem 0.5rem;
   width: 166px;
+}
+#mouse-2-menu {
+  display: none;
+  position: absolute;
+}
+#subtask_input {
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px 0px #6c757d;
+  display: none;
+  left: 175px;
+  position: absolute;
+  top: 26px;
 }
 .nav-bar ul {
   display: flex;
