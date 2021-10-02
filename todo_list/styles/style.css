@@ -90,6 +90,7 @@
 #subtask_input {
   border-radius: 10px;
   box-shadow: 0px 0px 8px 0px #6c757d;
+  display: none;
   left: 175px;
   position: absolute;
   top: 26px;
