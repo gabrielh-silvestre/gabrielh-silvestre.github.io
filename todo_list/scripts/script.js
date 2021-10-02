@@ -75,6 +75,10 @@ function completeTask(event) {
   event.target.classList.toggle('completed');
 }
 
+function unSelectTask() {
+  user.onFocusTask[0].firstChild.classList.remove('selected');
+}
+
 function completeTaskSecMenu() {
   user.onFocusTask[0].firstChild.classList.add('completed');
 }
@@ -308,7 +312,7 @@ function execButton(event) {
 const secondaryButtonsListeners = {
   create_subtasks: triggerSubInput,
   mark_done_task: completeTaskSecMenu,
-  // unselect_task: unSelectTask,
+  unselect_task: unSelectTask,
 }
 
 function execSecondaryButtons(event) {
@@ -433,7 +437,7 @@ function triggerBtnColors(event) {
 function expandSecondayMenu() {
   const secondaryMenu = anime({
     targets: '#mouse-2-menu .secondary-menu-container',
-    height: ['5px', '270px'],
+    height: ['5px', '190px'],
     width: ['5px', '195px'],
     autoplay: false,
     duration: 300,
@@ -446,7 +450,7 @@ function expandSecondayMenu() {
 function collapseSecondayMenu() {
   const secondaryMenu = anime({
     targets: '#mouse-2-menu .secondary-menu-container',
-    height: ['270px', '5px'],
+    height: ['190px', '5px'],
     width: ['195px', '5px'],
     autoplay: false,
     duration: 300,
