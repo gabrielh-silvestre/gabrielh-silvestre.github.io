@@ -27,6 +27,7 @@ function addMultiplesEventsAndListeners(arr, eventsName, listener) {
 // global variables
 
 const user = {
+  subContent: '',
   taskContent: '',
   allTasks: [],
   configMenu: false,
@@ -88,8 +89,20 @@ function getTaskContent(event) {
   }
 }
 
+function getSubTaskContent(event) {
+  if (event.which === 13) {
+    console.log(user.subContent);
+  } else {
+    user.subContent = event.target.value;
+  }
+}
+
 function taskListInput() {
   staticElements.inputTextTask.addEventListener('keyup', getTaskContent);
+}
+
+function subTaskListInput() {
+  staticElements.subTaskInput.addEventListener('keyup', getSubTaskContent);
 }
 
 function constructorTask(taskContainer, taskContent, ...taskSubContent) {
@@ -308,17 +321,18 @@ function showSecondayMenu() {
 }
 
 function mouseCommands(event) {
-  event.preventDefault();
-  staticElements.secondaryMenu.style.left = `${event.clientX}px`;
-  staticElements.secondaryMenu.style.top = `${event.clientY - 5}px`;
-  showSecondayMenu();
+  if (event.target.className.includes('task-title')) {
+    event.preventDefault();
+    staticElements.secondaryMenu.style.left = `${event.clientX}px`;
+    staticElements.secondaryMenu.style.top = `${event.clientY - 5}px`;
+    showSecondayMenu();
+  }
 }
 
 function execUniversalCommands(event) {
-  const whatCommand = event.type === 'keyup'
-  ? keyCommands
-  : mouseCommands;
-  whatCommand(event);
+  event.type === 'keyup'
+  ? keyCommands(event)
+  : mouseCommands(event);
 }
 
 // Animation
@@ -443,6 +457,7 @@ function collapseSubInput() {
  
 window.onload = () => {
   taskListInput();
+  subTaskListInput();
   staticElements.generalConfigs.addEventListener('click', triggerMenuControl);
   staticElements.secondaryMenu.addEventListener('mouseleave', hideSecondaryMenu);
   addMultiplesEventsAndListeners(document.querySelectorAll('.btn-config'), 'mouseenter mouseleave', triggerBtnColors);
