@@ -72,7 +72,8 @@
   letter-spacing: 3px;
   padding: 1.2rem 1.6rem;
 }
-#texto-tarefa {
+#texto-tarefa,
+#subtask_input {
   border: none;
   border-radius: 0 10px 10px 0;
   box-shadow: inset 0px 0px 15px -5px #4f0a99;
@@ -85,6 +86,13 @@
 #mouse-2-menu {
   display: none;
   position: absolute;
+}
+#subtask_input {
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px 0px #6c757d;
+  left: 175px;
+  position: absolute;
+  top: 26px;
 }
 .nav-bar ul {
   display: flex;
