@@ -64,13 +64,18 @@
   background-color: #39c18c;
   border-radius: 10px;
 }
-.task-title {
+.task-title,
+.task-sub {
   cursor: pointer;
   font-family: 'Dancing Script', cursive;
   font-size: 2rem;
   font-weight: normal;
   letter-spacing: 3px;
   padding: 1.2rem 1.6rem;
+}
+.task-sub {
+  font-size: 1.5rem;
+  padding: 0.6rem 0.8rem;
 }
 #texto-tarefa,
 #subtask_input {
