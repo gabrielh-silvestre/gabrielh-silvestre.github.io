@@ -115,25 +115,19 @@ function createTaskContent() {
 // }
 
 function showSubInput() {
-  console.log('mostra');
   document.querySelector('#subtask_input').style.display = 'flex';
   expandSubInput();
+  user.subInput = true;
 }
 
 function hideSubInput() {
-  console.log('esconde');
   collapseSubInput();
   setTimeout(() =>  staticElements.subTaskInput.style.display = 'none', 290);
+  user.subInput = false;
 }
 
 function triggerTemp() {
-  if (!user.subInput) {
-    showSubInput();
-    user.subInput = true;
-  } else {
-    hideSubInput();
-    user.subInput = false;
-  }
+  !user.subInput ? showSubInput() : hideSubInput();
 }
 
 function createTaskContainer() {
@@ -304,6 +298,7 @@ function keyCommands(event) {
 
 function hideSecondaryMenu() {
   collapseSecondayMenu();
+  hideSubInput();
   setTimeout(() => staticElements.secondaryMenu.style.display = 'none', 290);
 }
 
@@ -337,6 +332,7 @@ function showMenu() {
     autoplay: false,
   });
 
+  user.configMenu = true;
   show.play();
 }
 
@@ -349,15 +345,14 @@ function hideMenu() {
     autoplay: false,
   });
 
+  user.configMenu = false;
   hide.play();
 }
 
 function triggerMenuControl(event) {
   if (event.target === staticElements.generalConfigs && !user.configMenu) {
-    user.configMenu = true;
     showMenu();
   } else if (event.target === staticElements.generalConfigs && user.configMenu) {
-    user.configMenu = false;
     hideMenu();
   }
 };
