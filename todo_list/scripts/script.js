@@ -175,6 +175,7 @@ function createTaskContainer() {
 function insertSubTask() {
   const taskSubContent = createSubTask();
   user.onFocusTask[0].appendChild(taskSubContent);
+  resetSubInput();
 }
 
 function createTask() {
@@ -204,6 +205,11 @@ function renderTask() {
 function resetInput() {
   staticElements.inputTextTask.value = '';
   user.taskContent = '';
+}
+
+function resetSubInput() {
+  staticElements.subTaskInput.value = '';
+  user.subContent = '';
 }
 
 function taskCreation() {
