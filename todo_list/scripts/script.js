@@ -27,10 +27,12 @@ function addMultiplesEventsAndListeners(arr, eventsName, listener) {
 // global variables
 
 const user = {
+  subContent: '',
   taskContent: '',
   allTasks: [],
   configMenu: false,
   subInput: false,
+  onFocusTask: [],
 };
 
 const staticElements = {
@@ -48,6 +50,14 @@ const staticElements = {
 
 // functions for the project
 
+function getFocusTask(event) {
+  user.onFocusTask.push(event.target.parentNode);
+}
+
+function resetFocusTask() {
+  user.onFocusTask.length = 0;
+}
+
 function resetTaskSelection() {
   user.allTasks.forEach((task) => {
     task.content.classList.remove('selected');
@@ -55,12 +65,22 @@ function resetTaskSelection() {
 }
 
 function selectTask(event) {
-  resetTaskSelection();
-  event.target.classList.add('selected');
+  if (event.target.className.includes('task-title')) {
+    resetTaskSelection();
+    event.target.classList.add('selected');
+  }
 }
 
 function completeTask(event) {
   event.target.classList.toggle('completed');
+}
+
+function unSelectTask() {
+  user.onFocusTask[0].firstChild.classList.remove('selected');
+}
+
+function completeTaskSecMenu() {
+  user.onFocusTask[0].firstChild.classList.add('completed');
 }
 
 function taskEvents(event) {
@@ -88,8 +108,21 @@ function getTaskContent(event) {
   }
 }
 
+function getSubTaskContent(event) {
+  if (event.which === 13) {
+    insertSubTask();
+    saveLocalStorage();
+  } else {
+    user.subContent = event.target.value;
+  }
+}
+
 function taskListInput() {
   staticElements.inputTextTask.addEventListener('keyup', getTaskContent);
+}
+
+function subTaskListInput() {
+  staticElements.subTaskInput.addEventListener('keyup', getSubTaskContent);
 }
 
 function constructorTask(taskContainer, taskContent, ...taskSubContent) {
@@ -110,9 +143,12 @@ function createTaskContent() {
   return newTaskContent;
 }
 
-// function createTaskSubContent() {
-
-// }
+function createSubTask() {
+  const newSubTask = document.createElement('p');
+  newSubTask.classList.add('task-sub');
+  newSubTask.innerText = user.subContent;
+  return newSubTask;
+}
 
 function showSubInput() {
   document.querySelector('#subtask_input').style.display = 'flex';
@@ -126,7 +162,7 @@ function hideSubInput() {
   user.subInput = false;
 }
 
-function triggerTemp() {
+function triggerSubInput() {
   !user.subInput ? showSubInput() : hideSubInput();
 }
 
@@ -136,10 +172,15 @@ function createTaskContainer() {
   return newTaskConatiner;
 }
 
+function insertSubTask() {
+  const taskSubContent = createSubTask();
+  user.onFocusTask[0].appendChild(taskSubContent);
+  resetSubInput();
+}
+
 function createTask() {
   const taskContainer = createTaskContainer();
   const taskContent = createTaskContent();
-  // const taskSubContent = createTaskSubContent();
   taskContainer.appendChild(taskContent);
   saveTask(constructorTask(taskContainer, taskContent));
 }
@@ -164,6 +205,11 @@ function renderTask() {
 function resetInput() {
   staticElements.inputTextTask.value = '';
   user.taskContent = '';
+}
+
+function resetSubInput() {
+  staticElements.subTaskInput.value = '';
+  user.subContent = '';
 }
 
 function taskCreation() {
@@ -270,16 +316,15 @@ function execButton(event) {
 }
 
 const secondaryButtonsListeners = {
-  create_subtasks: triggerTemp,
-  // unselect_task: unSelectTask,
-  // change_bgc_task: changeBgcTask,
-  // save_all_task: saveLocalStorage,  
+  create_subtasks: triggerSubInput,
+  mark_done_task: completeTaskSecMenu,
+  unselect_task: unSelectTask,
 }
 
 function execSecondaryButtons(event) {
   const rightFunc = secondaryButtonsListeners[event.target.id];
   rightFunc();
-  // saveLocalStorage();
+  saveLocalStorage();
 }
 
 const keyListeners = {
@@ -299,6 +344,7 @@ function keyCommands(event) {
 function hideSecondaryMenu() {
   collapseSecondayMenu();
   hideSubInput();
+  resetFocusTask();
   setTimeout(() => staticElements.secondaryMenu.style.display = 'none', 290);
 }
 
@@ -308,17 +354,20 @@ function showSecondayMenu() {
 }
 
 function mouseCommands(event) {
-  event.preventDefault();
-  staticElements.secondaryMenu.style.left = `${event.clientX}px`;
-  staticElements.secondaryMenu.style.top = `${event.clientY - 5}px`;
-  showSecondayMenu();
+  if (event.target.className.includes('task-title')) {
+    staticElements.secondaryMenu.style.left = `${event.clientX}px`;
+    staticElements.secondaryMenu.style.top = `${event.clientY - 5}px`;
+
+    getFocusTask(event);
+    event.preventDefault();
+    showSecondayMenu();
+  }
 }
 
 function execUniversalCommands(event) {
-  const whatCommand = event.type === 'keyup'
-  ? keyCommands
-  : mouseCommands;
-  whatCommand(event);
+  event.type === 'keyup'
+  ? keyCommands(event)
+  : mouseCommands(event);
 }
 
 // Animation
@@ -394,7 +443,7 @@ function triggerBtnColors(event) {
 function expandSecondayMenu() {
   const secondaryMenu = anime({
     targets: '#mouse-2-menu .secondary-menu-container',
-    height: ['5px', '270px'],
+    height: ['5px', '190px'],
     width: ['5px', '195px'],
     autoplay: false,
     duration: 300,
@@ -407,7 +456,7 @@ function expandSecondayMenu() {
 function collapseSecondayMenu() {
   const secondaryMenu = anime({
     targets: '#mouse-2-menu .secondary-menu-container',
-    height: ['270px', '5px'],
+    height: ['190px', '5px'],
     width: ['195px', '5px'],
     autoplay: false,
     duration: 300,
@@ -443,6 +492,7 @@ function collapseSubInput() {
  
 window.onload = () => {
   taskListInput();
+  subTaskListInput();
   staticElements.generalConfigs.addEventListener('click', triggerMenuControl);
   staticElements.secondaryMenu.addEventListener('mouseleave', hideSecondaryMenu);
   addMultiplesEventsAndListeners(document.querySelectorAll('.btn-config'), 'mouseenter mouseleave', triggerBtnColors);
