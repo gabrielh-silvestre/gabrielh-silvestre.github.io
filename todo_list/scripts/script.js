@@ -65,12 +65,18 @@ function resetTaskSelection() {
 }
 
 function selectTask(event) {
-  resetTaskSelection();
-  event.target.classList.add('selected');
+  if (event.target.className.includes('task-title')) {
+    resetTaskSelection();
+    event.target.classList.add('selected');
+  }
 }
 
 function completeTask(event) {
   event.target.classList.toggle('completed');
+}
+
+function completeTaskSecMenu() {
+  user.onFocusTask[0].firstChild.classList.add('completed');
 }
 
 function taskEvents(event) {
@@ -100,8 +106,8 @@ function getTaskContent(event) {
 
 function getSubTaskContent(event) {
   if (event.which === 13) {
-    console.log(user.allTasks);
     insertSubTask();
+    saveLocalStorage();
   } else {
     user.subContent = event.target.value;
   }
@@ -152,7 +158,7 @@ function hideSubInput() {
   user.subInput = false;
 }
 
-function triggerTemp() {
+function triggerSubInput() {
   !user.subInput ? showSubInput() : hideSubInput();
 }
 
@@ -300,16 +306,15 @@ function execButton(event) {
 }
 
 const secondaryButtonsListeners = {
-  create_subtasks: triggerTemp,
+  create_subtasks: triggerSubInput,
+  mark_done_task: completeTaskSecMenu,
   // unselect_task: unSelectTask,
-  // change_bgc_task: changeBgcTask,
-  // save_all_task: saveLocalStorage,  
 }
 
 function execSecondaryButtons(event) {
   const rightFunc = secondaryButtonsListeners[event.target.id];
   rightFunc();
-  // saveLocalStorage();
+  saveLocalStorage();
 }
 
 const keyListeners = {
