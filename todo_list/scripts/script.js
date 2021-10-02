@@ -32,6 +32,7 @@ const user = {
   allTasks: [],
   configMenu: false,
   subInput: false,
+  onFocusTask: [],
 };
 
 const staticElements = {
@@ -48,6 +49,14 @@ const staticElements = {
 };
 
 // functions for the project
+
+function getFocusTask(event) {
+  user.onFocusTask.push(event.target.parentNode);
+}
+
+function resetFocusTask() {
+  user.onFocusTask.length = 0;
+}
 
 function resetTaskSelection() {
   user.allTasks.forEach((task) => {
@@ -91,7 +100,8 @@ function getTaskContent(event) {
 
 function getSubTaskContent(event) {
   if (event.which === 13) {
-    console.log(user.subContent);
+    console.log(user.allTasks);
+    insertSubTask();
   } else {
     user.subContent = event.target.value;
   }
@@ -123,9 +133,12 @@ function createTaskContent() {
   return newTaskContent;
 }
 
-// function createTaskSubContent() {
-
-// }
+function createSubTask() {
+  const newSubTask = document.createElement('p');
+  newSubTask.classList.add('task-sub');
+  newSubTask.innerText = user.subContent;
+  return newSubTask;
+}
 
 function showSubInput() {
   document.querySelector('#subtask_input').style.display = 'flex';
@@ -149,10 +162,14 @@ function createTaskContainer() {
   return newTaskConatiner;
 }
 
+function insertSubTask() {
+  const taskSubContent = createSubTask();
+  user.onFocusTask[0].appendChild(taskSubContent);
+}
+
 function createTask() {
   const taskContainer = createTaskContainer();
   const taskContent = createTaskContent();
-  // const taskSubContent = createTaskSubContent();
   taskContainer.appendChild(taskContent);
   saveTask(constructorTask(taskContainer, taskContent));
 }
@@ -312,6 +329,7 @@ function keyCommands(event) {
 function hideSecondaryMenu() {
   collapseSecondayMenu();
   hideSubInput();
+  resetFocusTask();
   setTimeout(() => staticElements.secondaryMenu.style.display = 'none', 290);
 }
 
@@ -322,9 +340,11 @@ function showSecondayMenu() {
 
 function mouseCommands(event) {
   if (event.target.className.includes('task-title')) {
-    event.preventDefault();
     staticElements.secondaryMenu.style.left = `${event.clientX}px`;
     staticElements.secondaryMenu.style.top = `${event.clientY - 5}px`;
+
+    getFocusTask(event);
+    event.preventDefault();
     showSecondayMenu();
   }
 }
