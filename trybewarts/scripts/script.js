@@ -4,7 +4,18 @@ const user = {
   trueAgreement: false,
 };
 
-function charCount() {
+const autentication = () => {
+  const userEmail = document.querySelector('#email').value;
+  const userPassword = document.querySelector('#password').value;
+
+  return userEmail === user.email && userPassword === user.password;
+}
+
+const login = () => {
+  autentication() ? alert('Bem Vindo Tryber!') : alert('Credenciais Incorretas')
+}
+
+const charCount = () => {
   const textArea = document.querySelector('#textarea');
   const counter = document.querySelector('#counter');
   const numberChar = parseInt(counter.innerText, 10);
@@ -15,5 +26,6 @@ function charCount() {
 }
 
 window.onload = () => {
+  document.querySelector('#btn-login').addEventListener('click', login);
   charCount();
 };
