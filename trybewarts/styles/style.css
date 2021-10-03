@@ -1,0 +1,34 @@
+body {
+  background-color: #F3FDFF;
+}
+
+.btn-login {
+  background-color: #4E2C83;
+  color: #F3FDFF;
+}
+
+#counter {
+  width: fit-content;
+}
+
+footer {
+  background-color: #3C404A;
+  bottom: 0;
+  position: absolute;
+}
+
+header {
+  background-color: #39C18C;
+}
+
+#textarea {
+  height: 15vh;
+}
+
+#trybewarts-forms-logo {
+  width: 30vw;
+}
+
+#trybewarts-logo {
+  width: 100px;
+}
