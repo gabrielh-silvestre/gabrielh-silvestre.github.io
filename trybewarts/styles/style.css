@@ -7,14 +7,28 @@ body {
   color: #F3FDFF;
 }
 
+#counter {
+  width: fit-content;
+}
+
+footer {
+  background-color: #3C404A;
+  bottom: 0;
+  position: absolute;
+}
+
 header {
   background-color: #39C18C;
 }
 
-#trybewarts-logo {
-  width: 100px;
+#textarea {
+  height: 15vh;
 }
 
 #trybewarts-forms-logo {
   width: 30vw;
+}
+
+#trybewarts-logo {
+  width: 100px;
 }
